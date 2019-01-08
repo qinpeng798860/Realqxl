@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Realqxl:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="Realqxl.war">
+      <element id="artifact" artifact-name="Realqxl:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.system.mapper.ModelMapper" >
+  <!--开启ehcache缓存-->
+  <cache type="org.mybatis.caches.ehcache.EhcacheCache">
+    <property name="timeToIdleSeconds" value="3600"/>
+    <property name="timeToLiveSeconds" value="3600"/>
+    <property name="maxEntriesLocalHeap" value="1000"/>
+    <property name="maxEntriesLocalDisk" value="10000000"/>
+    <property name="memoryStoreEvictionPolicy" value="LRU"/>
+  </cache>
+  <resultMap id="BaseResultMap" type="com.zking.real.system.model.Model" >
+    <constructor >
+      <idArg column="r_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_parent_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_icon" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_text" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r_code, r_parent_code, r_icon, r_text, r_url
+  </sql>
+  <select id="queryModel" resultType="com.zking.real.system.model.Model" parameterType="com.zking.real.system.model.Model">
+    select <include refid="Base_Column_List"/>
+    FROM  r_model where 1=1
+    <if test=" rParentCode != null and rParentCode!=''">
+      and r_parent_code=#{rParentCode}
+    </if>
+
+  </select>
+</mapper>
