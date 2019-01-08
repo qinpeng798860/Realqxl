@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.real.server.mapper.ServerMapper">
+  <resultMap id="BaseResultMap" type="com.zking.real.server.model.Server">
+    <constructor>
+      <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="r_fc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="r_lymc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="r_dy" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="r_fjmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="r_sqr" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="r_lxdh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="r_sqsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="r_fwlx" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="r_zt" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="r_ljqfze" javaType="java.lang.Float" jdbcType="REAL" />
+      <arg column="r_sqsx" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="r_fwfy" javaType="java.lang.Float" jdbcType="REAL" />
+      <arg column="r_spyj" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, r_fc, r_lymc, r_dy, r_fjmc, r_sqr, r_lxdh, r_sqsj, r_fwlx, r_zt, r_ljqfze, r_sqsx, 
+    r_fwfy, r_spyj
+  </sql>
+  <insert id="insert" parameterType="com.zking.real.server.model.Server">
+     insert into "r_server" (id, r_fc, r_lymc,
+      r_dy, r_fjmc, r_sqr, r_lxdh,
+      r_sqsj, r_fwlx, r_zt,
+      r_ljqfze, r_sqsx, r_fwfy, r_spyj
+      )
+    values (#{id,jdbcType=VARCHAR}, #{rFc,jdbcType=VARCHAR}, #{rLymc,jdbcType=VARCHAR},
+      #{rDy,jdbcType=VARCHAR}, #{rFjmc,jdbcType=VARCHAR}, #{rSqr,jdbcType=VARCHAR}, #{rLxdh,jdbcType=VARCHAR},
+      #{rSqsj,jdbcType=TIMESTAMP}, #{rFwlx,jdbcType=VARCHAR}, #{rZt,jdbcType=VARCHAR},
+      #{rLjqfze,jdbcType=REAL}, #{rSqsx,jdbcType=VARCHAR}, #{rFwfy,jdbcType=REAL}, #{rSpyj,jdbcType=VARCHAR}
+      )
+  </insert>
+
+</mapper>
