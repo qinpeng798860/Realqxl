@@ -32,7 +32,6 @@ public class ModelController {
     @RequestMapping("/queryModel")
     @ResponseBody
     public List<Model> queryModel(Model model){
-        System.out.println(model);
         List<Model> models = iModelService.queryModel(model);
         return models;
     }

@@ -11,7 +11,7 @@
 		</dir>
 	</classpath>
 
-	<web>
+    <web>
 		<link target="/">
 			<dir name="D:/IDea/IdeaProjects/Realqxl/src/main/webapp">
 			</dir>
