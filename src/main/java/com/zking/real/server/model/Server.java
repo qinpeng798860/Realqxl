@@ -1,9 +1,11 @@
 package com.zking.real.server.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.ToString;
 
 import java.util.Date;
 
+@ToString
 public class Server {
     private String id;
 
@@ -19,8 +21,8 @@ public class Server {
 
     private String rLxdh;
 
-    /*格式转换*/
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    /*时间格式转换*/
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date rSqsj;
 
     private String rFwlx;

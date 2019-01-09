@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.system.mapper.DictMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.system.model.Dict" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="r_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_item" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_value" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_is_editable" jdbcType="BIT" javaType="java.lang.Boolean" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, r_type, r_item, r_value, r_is_editable
+  </sql>
+
+    <select id="queryDict" resultType="com.zking.real.system.model.Dict"
+            parameterType="com.zking.real.system.model.Dict">
+    select <include refid="Base_Column_List"/>
+      from r_dict where 1=1 AND r_type=#{rType}
+
+
+    </select>
+
+</mapper>

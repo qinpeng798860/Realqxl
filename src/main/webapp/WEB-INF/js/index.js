@@ -75,7 +75,7 @@ function createTab(node) {
         $("#tabContainer").data("tabs").addTab({
             id: node.rCode,
             text: node.rText,
-            url:rootPath+node.rurl,
+            url:rootPath+node.rUrl,
             closeable: true,
         });
         arryTabs.push(node.rCode);

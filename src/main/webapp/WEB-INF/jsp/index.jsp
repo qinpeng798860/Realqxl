@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap-tab.css" /><%--选项卡样式--%>
     <script src="bootstrap/js/bootstrap-tab.js"></script><%--选项卡js--%>
     <script src="js/index.js"></script>
-
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
@@ -27,14 +26,12 @@
                 <em></em>
             </a>
         </div>
-    <form class="navbar-form navbar-right" role="search">
-        <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> 重新登陆</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 安全退出</a></li>
-        </ul>
-    </form>
-
-
+        <form class="navbar-form navbar-right" role="search">
+            <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> 重新登陆</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 安全退出</a></li>
+            </ul>
+        </form>
             <div class="clear"></div>
     <div class="clear"></div>
 </header>
@@ -69,9 +66,8 @@
             $(this).next(".left_slide").slideToggle().siblings(".left_slide").slideUp();
         });
     })
-
-
 </script>
+
 </body>
 </html>
 

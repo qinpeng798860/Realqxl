@@ -35,5 +35,11 @@
       #{rLjqfze,jdbcType=REAL}, #{rSqsx,jdbcType=VARCHAR}, #{rFwfy,jdbcType=REAL}, #{rSpyj,jdbcType=VARCHAR}
       )
   </insert>
+  <select id="queryModelPager" resultType="com.zking.real.server.model.Server"
+          parameterType="com.zking.real.server.model.Server">
+    SELECT <include refid="Base_Column_List"/>
+    from r_server
+
+  </select>
 
 </mapper>

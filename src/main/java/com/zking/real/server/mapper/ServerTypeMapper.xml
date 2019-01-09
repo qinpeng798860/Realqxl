@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.server.mapper.ServerTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.server.model.ServerType" >
+    <constructor >
+      <arg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_ssgs" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_lxmc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_dj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="r_note" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+   id,r_ssgs,r_lxmc,r_dj,r_status,r_note
+  </sql>
+  <insert id="insert" parameterType="com.zking.real.server.model.ServerType" >
+    insert into r_server_type (id, r_ssgs, r_lxmc,
+      r_dj,r_status, r_note)
+    values (#{id,jdbcType=VARCHAR}, #{rSsgs,jdbcType=VARCHAR}, #{rLxmc,jdbcType=VARCHAR}, 
+      #{rDj,jdbcType=REAL}, #{rStatus,jdbcType=VARCHAR}, #{rNote,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateServerType" parameterType="com.zking.real.server.model.ServerType">
+    update r_server_type set r_ssgs=#{rSsgs},r_lxmc=#{rLxmc},r_dj=#{rDj},r_status=#{rStatus},r_note=#{rNote}
+
+    where id=#{id}
+  </update>
+  <select id="queryServerTypePager" resultType="java.util.HashMap"
+          parameterType="com.zking.real.server.model.ServerType">
+      select  ty.id,r_ssgs,r_lxmc,r_dj,r_status,r_item,r_note
+      from r_server_type ty,r_dict di where ty.r_status=di.r_value and r_type='服务类型状态'
+  </select>
+</mapper>
