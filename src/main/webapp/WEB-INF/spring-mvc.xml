@@ -26,6 +26,7 @@
      <mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
      <mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
      <mvc:resources location="/WEB-INF/fonts/" mapping="/fonts/**"/>
+     <mvc:resources location="/WEB-INF/images/" mapping="/images/**"/>
 
 
     <!-- 5 配置文件上传解析器(CommonsMultipartResolver)-->

@@ -2,7 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
-
     <%@include file="/common/head.jsp" %>
     <%@include file="/WEB-INF/head.jsp"%>
     <%@taglib prefix="t" uri="http://www.springframework.org/tags" %>
@@ -46,8 +45,18 @@
         </div>
         <form class="navbar-form navbar-right" role="search">
             <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> 重新登陆</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 安全退出</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span>欢迎您:${LoginUser.rUsername}</a></li>
+                <li><a href="javascript:void(0)" onclick="loginOut();"><span class="glyphicon glyphicon-log-in"></span> 安全退出</a></li>
+                <script>
+                    function loginOut(){
+                        bootbox.confirm("您确认要退出吗",function(result){
+                            if(result){
+                                location.href=rootPath+"model/userLoginOut";
+                            }
+                        })
+                    }
+
+                </script>
             </ul>
         </form>
             <div class="clear"></div>
@@ -62,18 +71,27 @@
 <div class="con" style="height: 100%;">
         <%--中间内容--%>
     <div style="background: #ddd;margin-top: -20px;">
+
         <ul class="breadcrumb" id="indexUl">
             <li ><a href="javascript:void(0)" id="IndxContext"><i class="fa fa-university" ></i>物业首页</a></li>
         </ul>
         <iframe id="iframeContext" style="border:0; width:100%;margin-top: -20px;
-         background-color:#FFF;"name="iframe" frameborder="0" src="/real/model/queryIndxContext">
-
+         background-color:#FFF;"name="iframe" frameborder="0" src="/real/model/queryIndxContext.shtml">
 
         </iframe>
     </div>
     <%--    <script>
             $("#tabContainer").tabs({
                 data: [{id:"1",
+                    url:rootPath+'model/queryIndxContext',
+                    text:'物业首页',
+                    closeable: false,},{id:"1",
+                    url:rootPath+'model/queryIndxContext',
+                    text:'物业首页',
+                    closeable: false,},{id:"1",
+                    url:rootPath+'model/queryIndxContext',
+                    text:'物业首页',
+                    closeable: false,},{id:"1",
                     url:rootPath+'model/queryIndxContext',
                     text:'物业首页',
                     closeable: false,}],

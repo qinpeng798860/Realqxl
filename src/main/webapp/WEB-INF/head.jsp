@@ -23,10 +23,36 @@
 <link rel="stylesheet" href="css/reset.css"/><%--左侧导航样式--%>
 <link rel="stylesheet" href="css/property.css"/><%--左侧导航--%>
 
-<%--表单验证--%>
+
+<script src="bootstrap/js/bootstrapValidator.min.js"></script><%--公共表单验证js--%>
+
 <link rel="stylesheet" href="bootstrap/css/bootstrapValidator.min.css"/>
-<script src="bootstrap/js/bootstrapValidator.min.js"></script><%--公共js--%>
+<link rel="stylesheet" href="bootstrap/css/bootstrap-datetimepicker.min.css"/>
+<script src="bootstrap/js/bootstrap-datetimepicker.min.js"></script><%--时间控件js--%>
+<script src="bootstrap/js/bootstrap-datetimepicker.zh-CN.js"></script><%--国际化--%>
+
+
 
 <script src="js/common.js"></script><%--公共js--%>
 <script src="js/com.js"></script><%--公共js--%>
+
+<%--select2--%>
+<script src="bootstrap/js/select2.min.js"></script><%--时间控件js--%>
+<link rel="stylesheet" href="bootstrap/css/select2.min.css"/>
+
+<script src="bootstrap/js/bootbox.min.js"></script><%--提示框--%>
+
+
+
+<link rel="stylesheet" href="bootstrap/css/bootstrapStyle.css"/>
+<script src="bootstrap/js/jquery.ztree.core.js"></script><%--树形插件--%>
+<script src="bootstrap/js/jquery.ztree.excheck.js"></script><%--树形插件--%>
+<script src="bootstrap/js/jquery.ztree.exedit.js"></script><%--树形插件--%>
+
+<link rel="stylesheet" href="bootstrap/css/build.css"/>
+
+
+
+
+
 

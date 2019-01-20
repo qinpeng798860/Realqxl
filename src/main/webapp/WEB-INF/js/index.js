@@ -77,10 +77,11 @@ function openIframeNews(node){
     $("#" + node.id).html(node.rText);
     openId = node.id;
     //打开新页面
-    $("#iframeContext").attr("src",rootPath+node.rUrl);
+    $("#iframeContext").attr("src","/real"+node.rUrl);
 }
 //打开上一个页面
 function openoldIfrme(node){
+    $("#" + node.id).html(node.rText);
     $("#iframeContext").attr("src",rootPath+node.rUrl);
 }
 
