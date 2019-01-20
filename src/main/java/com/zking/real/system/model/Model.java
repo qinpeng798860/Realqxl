@@ -2,8 +2,10 @@ package com.zking.real.system.model;
 
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @ToString
-public class Model {
+public class Model implements Serializable {
     private String rCode;
 
     private String rParentCode;
