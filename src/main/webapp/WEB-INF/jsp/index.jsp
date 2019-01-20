@@ -15,6 +15,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>物业后台管理系统</title>
 </head>
+
+<script>
+    $(function () {
+        $("#iframeContext").height($(window).height()-110)
+        $(window).resize(function(){
+            $("#iframeContext").height($(window).height()-110);
+        });
+
+        /*点击图标首页*/
+        $("#IndxContext").click(function(){
+            $("#iframeContext").attr("src",rootPath+"/model/queryIndxContext");
+        })
+
+
+
+    })
+
+</script>
 <body>
 !--头部-->
 <header>
@@ -41,11 +59,19 @@
  </div>
 
 <%--内容--%>
-<div class="con">
-    <div style="width: 100%;height: 100%;margin-top: -20px;">
-        <div id="tabContainer"></div>
-        <script>
-            var rootPath=$("#absout").val();
+<div class="con" style="height: 100%;">
+        <%--中间内容--%>
+    <div style="background: #ddd;margin-top: -20px;">
+        <ul class="breadcrumb" id="indexUl">
+            <li ><a href="javascript:void(0)" id="IndxContext"><i class="fa fa-university" ></i>物业首页</a></li>
+        </ul>
+        <iframe id="iframeContext" style="border:0; width:100%;margin-top: -20px;
+         background-color:#FFF;"name="iframe" frameborder="0" src="/real/model/queryIndxContext">
+
+
+        </iframe>
+    </div>
+    <%--    <script>
             $("#tabContainer").tabs({
                 data: [{id:"1",
                     url:rootPath+'model/queryIndxContext',
@@ -54,9 +80,8 @@
                 showIndex: 0,
                 loadAll: false
             })
+        </script>--%>
 
-        </script>
-    </div>
 </div>
 
 <script>

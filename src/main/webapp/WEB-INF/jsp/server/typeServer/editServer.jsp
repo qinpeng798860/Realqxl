@@ -46,7 +46,7 @@
             </div>
             <%--按钮组--%>
             <div class="modal-footer">
-                <a  class="btn btn-primary" id="addServerTypeBtn_submit">
+                <a  class="btn btn-primary" id="addOwnerTypeBtn_submit">
                     提交
                 </a>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭

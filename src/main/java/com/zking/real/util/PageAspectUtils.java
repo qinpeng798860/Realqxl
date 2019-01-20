@@ -11,7 +11,7 @@ import java.util.List;
 
 @Component//仅仅表示spring中的一个组件（Bean），可以作用在任何层次
 @Aspect//aop功能
-public class PageAspect {
+public class PageAspectUtils {
 
     @Around("execution(* *..*Service.*Pager(..))")
     public Object incoke(ProceedingJoinPoint args) throws Throwable {

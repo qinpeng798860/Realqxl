@@ -4,11 +4,21 @@
 <link rel="stylesheet" href="css/font-awesome.css" /><%--图标样式--%>
 <script src="bootstrap/js/jquery.min.js"></script><%--jquery--%>
 
+
+<script src="js/Highcharts/highcharts.js"></script>
+<script src="js/Highcharts/data.js"></script>
+<script src="js/Highcharts/drilldown.js"></script>
+
+<link rel="stylesheet" href="bootstrap/css/bootstrap-datetimepicker.min.css"/>
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
 <script src="bootstrap/js/bootstrap.min.js"></script><%--bootstrap依赖--%>
 <script src="bootstrap/js/bootstrap-table.js"></script>
 <script src="bootstrap/js/bootstrap-table-ch-CN.min.js"></script>
+<script src="bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+<script src="bootstrap/js/bootstrap-datetimepicker.zh-CN.js"></script>
+
 <link rel="stylesheet" href="bootstrap/css/bootstrap-table.css"/><%--bootstrap-table插件--%>
+
 
 <link rel="stylesheet" href="css/reset.css"/><%--左侧导航样式--%>
 <link rel="stylesheet" href="css/property.css"/><%--左侧导航--%>
@@ -18,4 +28,5 @@
 <script src="bootstrap/js/bootstrapValidator.min.js"></script><%--公共js--%>
 
 <script src="js/common.js"></script><%--公共js--%>
+<script src="js/com.js"></script><%--公共js--%>
 

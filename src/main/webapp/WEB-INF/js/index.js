@@ -1,7 +1,7 @@
 var rootPath=$("#absout").val();
+
 $(function () {
     initMenu();
-
     /*点击li事件*/
     $("#navMenuList a ").click(function(){
         var fid = $(this).attr("id");
@@ -19,7 +19,7 @@ $(function () {
                   var menus=""
                   $.each(data,function(idx,ele){
                       var s=JSON.stringify(ele);
-                      menus+="<span><a href=\"javascript:;\" onclick='createTab("+s+");'>"+ele.rText+"</a></span>";
+                      menus+="<span><a href=\"javascript:;\" onclick='openIframeNews("+s+");'>"+ele.rText+"</a></span>";
                   });
                   $("#"+fid).append(menus);
               }
@@ -54,6 +54,7 @@ function initMenu(){
     })
 }
 
+/*导航*/
 var arryMenu=[];
 //只加载第一次
 function oneInitMenu(fid){
@@ -63,8 +64,31 @@ function oneInitMenu(fid){
         arryMenu.push(fid);
     }
 }
+//获取id用来判断是否重复加载
+var openId="";
+function openIframeNews(node){
+    var s=JSON.stringify(node);
+    var uls = "<li ><a href=\"javascript:void(0)\" id='"+node.id+"' onclick='openoldIfrme("+s+")'>" + node.rText + "</a></li>";
+    //判断是否重复
+    if(openId!=node.id){
+        $("#indexUl").append(uls);
+    }
+    //面包屑名
+    $("#" + node.id).html(node.rText);
+    openId = node.id;
+    //打开新页面
+    $("#iframeContext").attr("src",rootPath+node.rUrl);
+}
+//打开上一个页面
+function openoldIfrme(node){
+    $("#iframeContext").attr("src",rootPath+node.rUrl);
+}
 
-/*创建tab页面  并只加载一次*/
+
+
+
+/*
+/!*创建tab页面  并只加载一次*!/
 var arryTabs=[];
 function createTab(node) {
     var s=$("#tabContainer").data("tabs").showTab(node.rCode);
@@ -82,7 +106,7 @@ function createTab(node) {
     }
 }
 
-/*删除数组中tab的id*/
+/!*删除数组中tab的id*!/
 function removeTab(id){
     //查找下标
     var index = arryTabs.indexOf(id);
@@ -91,4 +115,4 @@ function removeTab(id){
         arryTabs.splice(index, 1);
     }
 
-}
+}*/
