@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.estate.mapper.ResidentialMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.estate.model.Residential" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_ssgs" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zzbh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zzmc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zdmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="r_jzmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="r_ldmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="r_dlmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="r_lybh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_fzr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zzdz" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_gsmc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_frdb" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_lxr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_lxdh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_lxdz" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_note" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, r_ssgs, r_zzbh, r_zzmc, r_zdmj, r_jzmj, r_ldmj, r_dlmj, r_lybh, r_fzr, r_zzdz,
+    r_gsmc, r_frdb, r_lxr, r_lxdh, r_lxdz, r_note
+  </sql>
+  <insert id="addHomes" parameterType="com.zking.real.estate.model.Residential">
+    INSERT INTO r_residential ( id, r_ssgs, r_zzbh, r_zzmc, r_zdmj, r_jzmj, r_ldmj, r_dlmj, r_lybh, r_fzr, r_zzdz,
+    r_gsmc, r_frdb, r_lxr, r_lxdh, r_lxdz, r_note)
+    VALUE (#{id},#{rSsgs},#{rZzbh},#{rZzmc},#{rZdmj},#{rJzmj},#{rLdmj},#{rDlmj},#{rLybh},#{rFzr},#{rZzdz},#{rGsmc},#{rFrdb},#{rLxr},#{rLxdh},#{rLxdz},#{rNote})
+  </insert>
+  <delete id="DelResidential" parameterType="org.springframework.web.bind.annotation.ResponseBody">
+    DELETE  FROM r_residential where 1=1 AND r_zzbh=#{rZzbh}
+  </delete>
+  <select id="queryListResidential" resultType="com.zking.real.estate.model.Residential"
+          parameterType="com.zking.real.estate.model.Residential">
+      SELECT <include refid="Base_Column_List"/> FROM  r_residential where 1=1
+<if test="rZzbh!=null" >
+      AND  r_zzbh=#{rZzbh}
+</if>
+
+    <if test="rZzmc!=null" >
+      AND  r_zzmc=#{rZzmc}
+    </if>
+
+
+
+
+
+  </select>
+
+</mapper>

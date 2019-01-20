@@ -1,12 +1,11 @@
 package com.zking.real.estate.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 
+@ToString
 public class Unit {
-    @JsonProperty("id")
     private String dybm;
 
-    @JsonProperty("text")
     private String dymc;
 
     private Integer kslc;
@@ -21,7 +20,9 @@ public class Unit {
 
     private String fjbm;
 
-    public Unit(String dybm, String dymc, Integer kslc, Integer jslc, Integer ksfh, Integer jsfh, String node, String fjbm) {
+    private String lybh;
+
+    public Unit(String dybm, String dymc, Integer kslc, Integer jslc, Integer ksfh, Integer jsfh, String node, String fjbm, String lybh) {
         this.dybm = dybm;
         this.dymc = dymc;
         this.kslc = kslc;
@@ -30,6 +31,7 @@ public class Unit {
         this.jsfh = jsfh;
         this.node = node;
         this.fjbm = fjbm;
+        this.lybh = lybh;
     }
 
     public Unit() {
@@ -98,5 +100,13 @@ public class Unit {
 
     public void setFjbm(String fjbm) {
         this.fjbm = fjbm;
+    }
+
+    public String getLybh() {
+        return lybh;
+    }
+
+    public void setLybh(String lybh) {
+        this.lybh = lybh;
     }
 }

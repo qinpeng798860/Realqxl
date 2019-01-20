@@ -1,21 +1,14 @@
 package com.zking.real.estate.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
-
 @ToString
-public class Building  implements Serializable{
-
-    @JsonProperty("id")
+public class Building {
     private String lybm;
 
-    private String zzbm;
-
-    @JsonProperty("text")
     private String lymc;
+
 
     private String lygn;
 
@@ -37,9 +30,36 @@ public class Building  implements Serializable{
 
     private String note;
 
-    public Building(String lybm, String zzbm, String lymc, String lygn, String jglb, String wsdj, Float jzmj, Float symj, String jzxkz, String ysxkz, Date jgrq, Date fdrq, String note) {
+    private String zzbh;
+    private String zxbz;
+    private Integer dysl;
+
+    public Integer getDysl() {
+        return dysl;
+    }
+
+    public void setDysl(Integer dysl) {
+        this.dysl = dysl;
+    }
+
+    public String getZxbz() {
+        return zxbz;
+    }
+
+    public void setZxbz(String zxbz) {
+        this.zxbz = zxbz;
+    }
+
+    public String getZzbh() {
+        return zzbh;
+    }
+
+    public void setZzbh(String zzbh) {
+        this.zzbh = zzbh;
+    }
+
+    public Building(String lybm, String lymc,  String lygn, String jglb, String wsdj, Float jzmj, Float symj, String jzxkz, String ysxkz, Date jgrq, Date fdrq, String note, String zzbh, String zxbz, Integer dysl) {
         this.lybm = lybm;
-        this.zzbm = zzbm;
         this.lymc = lymc;
         this.lygn = lygn;
         this.jglb = jglb;
@@ -51,6 +71,9 @@ public class Building  implements Serializable{
         this.jgrq = jgrq;
         this.fdrq = fdrq;
         this.note = note;
+        this.zzbh = zzbh;
+        this.zxbz = zxbz;
+        this.dysl = dysl;
     }
 
     public Building() {
@@ -65,14 +88,6 @@ public class Building  implements Serializable{
         this.lybm = lybm;
     }
 
-    public String getZzbm() {
-        return zzbm;
-    }
-
-    public void setZzbm(String zzbm) {
-        this.zzbm = zzbm;
-    }
-
     public String getLymc() {
         return lymc;
     }
@@ -80,6 +95,8 @@ public class Building  implements Serializable{
     public void setLymc(String lymc) {
         this.lymc = lymc;
     }
+
+
 
     public String getLygn() {
         return lygn;

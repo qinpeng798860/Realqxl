@@ -3,7 +3,7 @@
 <mapper namespace="com.zking.real.estate.mapper.RoomMapper" >
   <resultMap id="BaseResultMap" type="com.zking.real.estate.model.Room" >
     <constructor >
-      <idArg column="fjbm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="fjbm" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="fjmc" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="hx" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="cx" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -24,260 +24,68 @@
       <arg column="wylx" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="fjxz" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="node" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dybh" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    fjbm, fjmc, hx, cx, zx, lcx, jzmj, symj, cph, cwmj, cwh, ccsh, ccsmj, glmj, fjzt, 
-    cd, kd, yt, wylx, fjxz, node
+fjbm,fjmc,hx,cx,zx,lcx,jzmj,symj,cph,cwmj,cwh,ccsh,ccsmj,glmj,fjzt,yt,wylx,fjxz,node,dybh
+
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from "r_room"
-    where fjbm = #{fjbm,jdbcType=VARCHAR}
-  </select>
-    <select id="queryUnitSelect" resultType="com.zking.real.estate.model.Room">
-    SELECT fjbm,fjh,fjmc FROM r_room WHERE 1=1 AND dybh=#{paramId}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from "r_room"
-    where fjbm = #{fjbm,jdbcType=VARCHAR}
+  <insert id="addRoom" parameterType="com.zking.real.estate.model.Room">
+    INSERT INTO r_room (fjbm,fjmc,hx,cx,zx,lcx,jzmj,symj,cph,cwmj,cwh,ccsh,ccsmj,glmj,fjzt,yt,wylx,fjxz,node,dybh)
+    VALUE (#{fjbm},#{fjmc},#{hx},#{cx},#{zx},#{lcx},#{jzmj},#{symj},#{cph},#{cwmj},#{cwh},#{ccsh},#{ccsmj},#{glmj},#{fjzt},#{yt},#{wylx},#{fjxz},#{node},#{dybh})
+  </insert>
+  <update id="updateRoom" parameterType="com.zking.real.estate.model.Room">
+    UPDATE r_room SET fjmc=#{fjmc},hx=#{hx},cx=#{cx},zx=#{zx},lcx=#{lcx},jzmj=#{jzmj},symj=#{symj},cph=#{cph},cwmj=#{cwmj},cwh=#{cwh},ccsh=#{ccsh},ccsmj=#{ccsmj},glmj=#{glmj},fjzt=#{fjzt},yt=#{yt},wylx=#{wylx},fjxz=#{fjxz},node=#{node}
+    WHERE fjbm = #{fjbm}
+
+  </update>
+  <delete id="delRoom" parameterType="com.zking.real.estate.model.Room">
+    delete from r_room where 1=1
+    <if test="null!=fjbm">
+      AND  fjbm =#{fjbm}
+    </if>
+    <if test="null!=dybh" >
+
+      AND  dybh = #{dybh}
+    </if>
+
   </delete>
-  <insert id="insert" parameterType="com.zking.real.estate.model.Room" >
-    insert into "r_room" (fjbm, fjmc, hx, 
-      cx, zx, lcx, jzmj, 
-      symj, cph, cwmj, cwh, 
-      ccsh, ccsmj, glmj, fjzt, 
-      cd, kd, yt, wylx, 
-      fjxz, node)
-    values (#{fjbm,jdbcType=VARCHAR}, #{fjmc,jdbcType=VARCHAR}, #{hx,jdbcType=VARCHAR}, 
-      #{cx,jdbcType=VARCHAR}, #{zx,jdbcType=VARCHAR}, #{lcx,jdbcType=INTEGER}, #{jzmj,jdbcType=REAL}, 
-      #{symj,jdbcType=REAL}, #{cph,jdbcType=VARCHAR}, #{cwmj,jdbcType=REAL}, #{cwh,jdbcType=VARCHAR}, 
-      #{ccsh,jdbcType=VARCHAR}, #{ccsmj,jdbcType=REAL}, #{glmj,jdbcType=REAL}, #{fjzt,jdbcType=VARCHAR}, 
-      #{cd,jdbcType=REAL}, #{kd,jdbcType=REAL}, #{yt,jdbcType=VARCHAR}, #{wylx,jdbcType=VARCHAR}, 
-      #{fjxz,jdbcType=VARCHAR}, #{node,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.zking.real.estate.model.Room" >
-    insert into "r_room"
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="fjbm != null" >
-        fjbm,
-      </if>
-      <if test="fjmc != null" >
-        fjmc,
-      </if>
-      <if test="hx != null" >
-        hx,
-      </if>
-      <if test="cx != null" >
-        cx,
-      </if>
-      <if test="zx != null" >
-        zx,
-      </if>
-      <if test="lcx != null" >
-        lcx,
-      </if>
-      <if test="jzmj != null" >
-        jzmj,
-      </if>
-      <if test="symj != null" >
-        symj,
-      </if>
-      <if test="cph != null" >
-        cph,
-      </if>
-      <if test="cwmj != null" >
-        cwmj,
-      </if>
-      <if test="cwh != null" >
-        cwh,
-      </if>
-      <if test="ccsh != null" >
-        ccsh,
-      </if>
-      <if test="ccsmj != null" >
-        ccsmj,
-      </if>
-      <if test="glmj != null" >
-        glmj,
-      </if>
-      <if test="fjzt != null" >
-        fjzt,
-      </if>
-      <if test="cd != null" >
-        cd,
-      </if>
-      <if test="kd != null" >
-        kd,
-      </if>
-      <if test="yt != null" >
-        yt,
-      </if>
-      <if test="wylx != null" >
-        wylx,
-      </if>
-      <if test="fjxz != null" >
-        fjxz,
-      </if>
-      <if test="node != null" >
-        node,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="fjbm != null" >
-        #{fjbm,jdbcType=VARCHAR},
-      </if>
-      <if test="fjmc != null" >
-        #{fjmc,jdbcType=VARCHAR},
-      </if>
-      <if test="hx != null" >
-        #{hx,jdbcType=VARCHAR},
-      </if>
-      <if test="cx != null" >
-        #{cx,jdbcType=VARCHAR},
-      </if>
-      <if test="zx != null" >
-        #{zx,jdbcType=VARCHAR},
-      </if>
-      <if test="lcx != null" >
-        #{lcx,jdbcType=INTEGER},
-      </if>
-      <if test="jzmj != null" >
-        #{jzmj,jdbcType=REAL},
-      </if>
-      <if test="symj != null" >
-        #{symj,jdbcType=REAL},
-      </if>
-      <if test="cph != null" >
-        #{cph,jdbcType=VARCHAR},
-      </if>
-      <if test="cwmj != null" >
-        #{cwmj,jdbcType=REAL},
-      </if>
-      <if test="cwh != null" >
-        #{cwh,jdbcType=VARCHAR},
-      </if>
-      <if test="ccsh != null" >
-        #{ccsh,jdbcType=VARCHAR},
-      </if>
-      <if test="ccsmj != null" >
-        #{ccsmj,jdbcType=REAL},
-      </if>
-      <if test="glmj != null" >
-        #{glmj,jdbcType=REAL},
-      </if>
-      <if test="fjzt != null" >
-        #{fjzt,jdbcType=VARCHAR},
-      </if>
-      <if test="cd != null" >
-        #{cd,jdbcType=REAL},
-      </if>
-      <if test="kd != null" >
-        #{kd,jdbcType=REAL},
-      </if>
-      <if test="yt != null" >
-        #{yt,jdbcType=VARCHAR},
-      </if>
-      <if test="wylx != null" >
-        #{wylx,jdbcType=VARCHAR},
-      </if>
-      <if test="fjxz != null" >
-        #{fjxz,jdbcType=VARCHAR},
-      </if>
-      <if test="node != null" >
-        #{node,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zking.real.estate.model.Room" >
-    update "r_room"
-    <set >
-      <if test="fjmc != null" >
-        fjmc = #{fjmc,jdbcType=VARCHAR},
-      </if>
-      <if test="hx != null" >
-        hx = #{hx,jdbcType=VARCHAR},
-      </if>
-      <if test="cx != null" >
-        cx = #{cx,jdbcType=VARCHAR},
-      </if>
-      <if test="zx != null" >
-        zx = #{zx,jdbcType=VARCHAR},
-      </if>
-      <if test="lcx != null" >
-        lcx = #{lcx,jdbcType=INTEGER},
-      </if>
-      <if test="jzmj != null" >
-        jzmj = #{jzmj,jdbcType=REAL},
-      </if>
-      <if test="symj != null" >
-        symj = #{symj,jdbcType=REAL},
-      </if>
-      <if test="cph != null" >
-        cph = #{cph,jdbcType=VARCHAR},
-      </if>
-      <if test="cwmj != null" >
-        cwmj = #{cwmj,jdbcType=REAL},
-      </if>
-      <if test="cwh != null" >
-        cwh = #{cwh,jdbcType=VARCHAR},
-      </if>
-      <if test="ccsh != null" >
-        ccsh = #{ccsh,jdbcType=VARCHAR},
-      </if>
-      <if test="ccsmj != null" >
-        ccsmj = #{ccsmj,jdbcType=REAL},
-      </if>
-      <if test="glmj != null" >
-        glmj = #{glmj,jdbcType=REAL},
-      </if>
-      <if test="fjzt != null" >
-        fjzt = #{fjzt,jdbcType=VARCHAR},
-      </if>
-      <if test="cd != null" >
-        cd = #{cd,jdbcType=REAL},
-      </if>
-      <if test="kd != null" >
-        kd = #{kd,jdbcType=REAL},
-      </if>
-      <if test="yt != null" >
-        yt = #{yt,jdbcType=VARCHAR},
-      </if>
-      <if test="wylx != null" >
-        wylx = #{wylx,jdbcType=VARCHAR},
-      </if>
-      <if test="fjxz != null" >
-        fjxz = #{fjxz,jdbcType=VARCHAR},
-      </if>
-      <if test="node != null" >
-        node = #{node,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where fjbm = #{fjbm,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zking.real.estate.model.Room" >
-    update "r_room"
-    set fjmc = #{fjmc,jdbcType=VARCHAR},
-      hx = #{hx,jdbcType=VARCHAR},
-      cx = #{cx,jdbcType=VARCHAR},
-      zx = #{zx,jdbcType=VARCHAR},
-      lcx = #{lcx,jdbcType=INTEGER},
-      jzmj = #{jzmj,jdbcType=REAL},
-      symj = #{symj,jdbcType=REAL},
-      cph = #{cph,jdbcType=VARCHAR},
-      cwmj = #{cwmj,jdbcType=REAL},
-      cwh = #{cwh,jdbcType=VARCHAR},
-      ccsh = #{ccsh,jdbcType=VARCHAR},
-      ccsmj = #{ccsmj,jdbcType=REAL},
-      glmj = #{glmj,jdbcType=REAL},
-      fjzt = #{fjzt,jdbcType=VARCHAR},
-      cd = #{cd,jdbcType=REAL},
-      kd = #{kd,jdbcType=REAL},
-      yt = #{yt,jdbcType=VARCHAR},
-      wylx = #{wylx,jdbcType=VARCHAR},
-      fjxz = #{fjxz,jdbcType=VARCHAR},
-      node = #{node,jdbcType=VARCHAR}
-    where fjbm = #{fjbm,jdbcType=VARCHAR}
-  </update>
+  <select id="queryListRoom" resultType="com.zking.real.estate.model.Room"
+          parameterType="com.zking.real.estate.model.Room">
+    SELECT rr.fjbm,fjmc,rd.r_item AS hx,ri.r_item AS cx,rc.r_item AS zx,rdi.r_item AS wylx,jzmj,symj,rt.r_item AS fjzt FROM r_room rr
+    INNER JOIN r_dict rd
+    ON
+    rr.hx = rd.r_value AND rd.r_type = "房间户型"
+    INNER JOIN  r_dict ri
+    ON
+    rr.cx = ri.r_value AND  ri.r_type = "朝向"
+    INNER JOIN r_dict rc
+    ON
+    rr.zx = rc.r_value AND  rc.r_type = "装修标准"
+    INNER JOIN r_dict rt
+    ON
+    rr.fjzt = rt.r_value AND rt.r_type="车位状态"
+    INNER JOIN r_dict rdi
+    ON
+    rr.wylx = rdi.r_value AND  rdi.r_type = "房间物业类型"
+    INNER  JOIN r_dict rdc
+    ON
+    rr.fjxz = rdc.r_value AND rdc.r_type="房间性质"  where dybh = #{dybh}
+
+
+
+  </select>
+  <select id="querySingRoom" resultType="com.zking.real.estate.model.Room"
+          parameterType="com.zking.real.estate.model.Room">
+    SELECT  <include refid="Base_Column_List"/>
+    FROM  r_room where 1=1
+    <if test="null!=fjbm">
+      AND  fjbm = #{fjbm}
+
+
+    </if>
+
+  </select>
+
 </mapper>

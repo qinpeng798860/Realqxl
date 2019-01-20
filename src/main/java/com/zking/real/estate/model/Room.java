@@ -1,13 +1,11 @@
 package com.zking.real.estate.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 
-public class Room {
-    @JsonProperty("id")
+import java.io.Serializable;
+@ToString
+public class Room implements Serializable{
     private String fjbm;
-
-    @JsonProperty("text")
-    private String fjh;
 
     private String fjmc;
 
@@ -49,9 +47,10 @@ public class Room {
 
     private String node;
 
-    public Room(String fjbm, String fjh, String fjmc, String hx, String cx, String zx, Integer lcx, Float jzmj, Float symj, String cph, Float cwmj, String cwh, String ccsh, Float ccsmj, Float glmj, String fjzt, Float cd, Float kd, String yt, String wylx, String fjxz, String node) {
+    private String dybh;
+
+    public Room(String fjbm, String fjmc, String hx, String cx, String zx, Integer lcx, Float jzmj, Float symj, String cph, Float cwmj, String cwh, String ccsh, Float ccsmj, Float glmj, String fjzt, Float cd, Float kd, String yt, String wylx, String fjxz, String node, String dybh) {
         this.fjbm = fjbm;
-        this.fjh = fjh;
         this.fjmc = fjmc;
         this.hx = hx;
         this.cx = cx;
@@ -72,6 +71,7 @@ public class Room {
         this.wylx = wylx;
         this.fjxz = fjxz;
         this.node = node;
+        this.dybh = dybh;
     }
 
     public Room() {
@@ -246,11 +246,11 @@ public class Room {
         this.node = node;
     }
 
-    public String getFjh() {
-        return fjh;
+    public String getDybh() {
+        return dybh;
     }
 
-    public void setFjh(String fjh) {
-        this.fjh = fjh;
+    public void setDybh(String dybh) {
+        this.dybh = dybh;
     }
 }

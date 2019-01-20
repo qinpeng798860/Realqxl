@@ -3,8 +3,7 @@
 <mapper namespace="com.zking.real.estate.mapper.BuildingMapper" >
   <resultMap id="BaseResultMap" type="com.zking.real.estate.model.Building" >
     <constructor >
-      <idArg column="lybm" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="zzbm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="lybm" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="lymc" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="lygn" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="jglb" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -13,184 +12,58 @@
       <arg column="symj" jdbcType="REAL" javaType="java.lang.Float" />
       <arg column="jzxkz" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="ysxkz" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="jgrq" jdbcType="DATE" javaType="java.util.Date" />
-      <arg column="fdrq" jdbcType="DATE" javaType="java.util.Date" />
       <arg column="note" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="zzbh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="zxbz" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dysl" jdbcType="INTEGER" javaType="java.lang.Integer" />
+
     </constructor>
   </resultMap>
-<resultMap id="Select2Building" type="com.zking.real.estate.model.Building">
-    <id  property="lybm" column="lybm"/>
-    <result  property="lymc" column="lymc"/>
-</resultMap>
   <sql id="Base_Column_List" >
-    lybm, zzbm, lymc, lygn, jglb, wsdj, jzmj, symj, jzxkz, ysxkz, jgrq, fdrq, note
+    lybm, lymc, lygn, jglb, wsdj, jzmj, symj, jzxkz, ysxkz,
+    note,zzbh,zxbz,dysl
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from "r_building"
-    where lybm = #{lybm,jdbcType=VARCHAR}
-  </select>
-    <select id="queryBuilding" resultType="com.zking.real.estate.model.Building" parameterType="java.lang.String">
-        SELECT lymc,lybm FROM r_RESIDENTIAL re
-        INNER JOIN r_building bu
-        ON re.r_zzbh=#{param Id}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from "r_building"
-    where lybm = #{lybm,jdbcType=VARCHAR}
+  <insert id="addBuilding" parameterType="com.zking.real.estate.model.Building">
+    INSERT  INTO r_building (lybm, lymc, lygn, jglb, wsdj, jzmj, symj, jzxkz, ysxkz,
+    note,zzbh,zxbz,dysl)
+    VALUE (#{lybm},#{lymc},#{lygn},#{jglb},#{wsdj},#{jzmj},#{symj},#{jzxkz},#{ysxkz},#{note},#{zzbh},#{zxbz},#{dysl})
+  </insert>
+  <update id="updateBuilding" parameterType="com.zking.real.estate.model.Building">
+    UPDATE  r_building SET lymc=#{lymc},lygn=#{lygn},jglb=#{jglb},wsdj=#{wsdj},jzmj=#{jzmj},symj=#{symj},jzxkz=#{jzxkz},ysxkz=#{ysxkz},note=#{note},zzbh=#{zzbh},zxbz=#{zxbz},dysl=#{dysl} WHERE lybm =#{lybm}
+  </update>
+  <delete id="delBuilding">
+    DELETE  FROM r_building where 1=1 AND lybm =#{lybm}
+
+
   </delete>
-  <insert id="insert" parameterType="com.zking.real.estate.model.Building" >
-    insert into "r_building" (lybm, zzbm, lymc, 
-      lygn, jglb, wsdj, jzmj, 
-      symj, jzxkz, ysxkz, jgrq, 
-      fdrq, note)
-    values (#{lybm,jdbcType=VARCHAR}, #{zzbm,jdbcType=VARCHAR}, #{lymc,jdbcType=VARCHAR}, 
-      #{lygn,jdbcType=VARCHAR}, #{jglb,jdbcType=VARCHAR}, #{wsdj,jdbcType=VARCHAR}, #{jzmj,jdbcType=REAL}, 
-      #{symj,jdbcType=REAL}, #{jzxkz,jdbcType=VARCHAR}, #{ysxkz,jdbcType=VARCHAR}, #{jgrq,jdbcType=DATE}, 
-      #{fdrq,jdbcType=DATE}, #{note,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.zking.real.estate.model.Building" >
-    insert into "r_building"
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="lybm != null" >
-        lybm,
-      </if>
-      <if test="zzbm != null" >
-        zzbm,
-      </if>
-      <if test="lymc != null" >
-        lymc,
-      </if>
-      <if test="lygn != null" >
-        lygn,
-      </if>
-      <if test="jglb != null" >
-        jglb,
-      </if>
-      <if test="wsdj != null" >
-        wsdj,
-      </if>
-      <if test="jzmj != null" >
-        jzmj,
-      </if>
-      <if test="symj != null" >
-        symj,
-      </if>
-      <if test="jzxkz != null" >
-        jzxkz,
-      </if>
-      <if test="ysxkz != null" >
-        ysxkz,
-      </if>
-      <if test="jgrq != null" >
-        jgrq,
-      </if>
-      <if test="fdrq != null" >
-        fdrq,
-      </if>
-      <if test="note != null" >
-        note,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="lybm != null" >
-        #{lybm,jdbcType=VARCHAR},
-      </if>
-      <if test="zzbm != null" >
-        #{zzbm,jdbcType=VARCHAR},
-      </if>
-      <if test="lymc != null" >
-        #{lymc,jdbcType=VARCHAR},
-      </if>
-      <if test="lygn != null" >
-        #{lygn,jdbcType=VARCHAR},
-      </if>
-      <if test="jglb != null" >
-        #{jglb,jdbcType=VARCHAR},
-      </if>
-      <if test="wsdj != null" >
-        #{wsdj,jdbcType=VARCHAR},
-      </if>
-      <if test="jzmj != null" >
-        #{jzmj,jdbcType=REAL},
-      </if>
-      <if test="symj != null" >
-        #{symj,jdbcType=REAL},
-      </if>
-      <if test="jzxkz != null" >
-        #{jzxkz,jdbcType=VARCHAR},
-      </if>
-      <if test="ysxkz != null" >
-        #{ysxkz,jdbcType=VARCHAR},
-      </if>
-      <if test="jgrq != null" >
-        #{jgrq,jdbcType=DATE},
-      </if>
-      <if test="fdrq != null" >
-        #{fdrq,jdbcType=DATE},
-      </if>
-      <if test="note != null" >
-        #{note,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zking.real.estate.model.Building" >
-    update "r_building"
-    <set >
-      <if test="zzbm != null" >
-        zzbm = #{zzbm,jdbcType=VARCHAR},
-      </if>
-      <if test="lymc != null" >
-        lymc = #{lymc,jdbcType=VARCHAR},
-      </if>
-      <if test="lygn != null" >
-        lygn = #{lygn,jdbcType=VARCHAR},
-      </if>
-      <if test="jglb != null" >
-        jglb = #{jglb,jdbcType=VARCHAR},
-      </if>
-      <if test="wsdj != null" >
-        wsdj = #{wsdj,jdbcType=VARCHAR},
-      </if>
-      <if test="jzmj != null" >
-        jzmj = #{jzmj,jdbcType=REAL},
-      </if>
-      <if test="symj != null" >
-        symj = #{symj,jdbcType=REAL},
-      </if>
-      <if test="jzxkz != null" >
-        jzxkz = #{jzxkz,jdbcType=VARCHAR},
-      </if>
-      <if test="ysxkz != null" >
-        ysxkz = #{ysxkz,jdbcType=VARCHAR},
-      </if>
-      <if test="jgrq != null" >
-        jgrq = #{jgrq,jdbcType=DATE},
-      </if>
-      <if test="fdrq != null" >
-        fdrq = #{fdrq,jdbcType=DATE},
-      </if>
-      <if test="note != null" >
-        note = #{note,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where lybm = #{lybm,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zking.real.estate.model.Building" >
-    update "r_building"
-    set zzbm = #{zzbm,jdbcType=VARCHAR},
-      lymc = #{lymc,jdbcType=VARCHAR},
-      lygn = #{lygn,jdbcType=VARCHAR},
-      jglb = #{jglb,jdbcType=VARCHAR},
-      wsdj = #{wsdj,jdbcType=VARCHAR},
-      jzmj = #{jzmj,jdbcType=REAL},
-      symj = #{symj,jdbcType=REAL},
-      jzxkz = #{jzxkz,jdbcType=VARCHAR},
-      ysxkz = #{ysxkz,jdbcType=VARCHAR},
-      jgrq = #{jgrq,jdbcType=DATE},
-      fdrq = #{fdrq,jdbcType=DATE},
-      note = #{note,jdbcType=VARCHAR}
-    where lybm = #{lybm,jdbcType=VARCHAR}
-  </update>
+  <select id="queryListBuilding" resultType="com.zking.real.estate.model.Building"
+          parameterType="com.zking.real.estate.model.Building">
+    SELECT  <include refid="Base_Column_List"/>  FROM r_building WHERE  1=1
+    <if test="null!=zzbh" >
+      AND zzbh=#{zzbh}
+    </if>
+
+
+  </select>
+  <select id="querySingBuilding" resultType="com.zking.real.estate.model.Building"
+          parameterType="com.zking.real.estate.model.Building">
+ SELECT */*lybm, lymc, rd.r_item AS lygn, ri.r_item AS jglb , rt.r_item AS wsdj, jzmj, symj, jzxkz, ysxkz,
+    note,zzbh,rc.r_item AS zxbz,dysl*/ FROM r_building rb
+  INNER JOIN r_dict rd
+  ON
+  rb.lygn = rd.r_value  AND rd.r_type = '楼宇功能'
+  INNER  JOIN r_dict ri
+  ON
+  rb.jglb = ri.r_value  AND ri.r_type='结构类别'
+  INNER  JOIN r_dict rc
+  ON
+  rb.zxbz = rc.r_value AND rc.r_type = '装修标准'
+  INNER JOIN r_dict rt
+
+  ON
+  rb.wsdj =rt.r_value  AND rt.r_type = '完损等级' WHERE 1=1
+
+ AND rb.lybm = #{lybm}
+
+  </select>
 </mapper>

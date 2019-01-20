@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.parking.mapper.GuardMapper">
+    <resultMap id="BaseResultMap" type="com.zking.real.parking.model.Guard">
+        <constructor>
+            <arg column="r_id" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="r_ssgs" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="r_kssj" jdbcType="DATE" javaType="java.util.Date"/>
+            <arg column="r_jssj" jdbcType="DATE" javaType="java.util.Date"/>
+            <arg column="r_bc" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="r_sd" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="r_dd" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="r_gw" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="r_zbry" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="r_note" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        </constructor>
+    </resultMap>
+
+    <sql id="Base_Column_List">r_id,
+r_ssgs, r_kssj, r_jssj,
+      r_bc, r_sd, r_dd, r_gw,
+      r_zbry, r_note
+
+
+  </sql>
+    <insert id="insert" parameterType="com.zking.real.parking.model.Guard">
+    insert into r_guard (r_ssgs, r_kssj, r_jssj, 
+      r_bc, r_sd, r_dd, r_gw, 
+      r_zbry, r_note)
+    values (#{rSsgs,jdbcType=VARCHAR}, #{rKssj,jdbcType=DATE}, #{rJssj,jdbcType=DATE}, 
+      #{rBc,jdbcType=VARCHAR}, #{rSd,jdbcType=VARCHAR}, #{rDd,jdbcType=VARCHAR}, #{rGw,jdbcType=VARCHAR}, 
+      #{rZbry,jdbcType=VARCHAR}, #{rNote,jdbcType=VARCHAR})
+  </insert>
+    <update id="updateGuard" parameterType="com.zking.real.parking.model.Guard">
+        UPDATE r_guard SET  #{rSsgs,jdbcType=VARCHAR}, #{rKssj,jdbcType=DATE}, #{rJssj,jdbcType=DATE},
+      #{rBc,jdbcType=VARCHAR}, #{rSd,jdbcType=VARCHAR}, #{rDd,jdbcType=VARCHAR}, #{rGw,jdbcType=VARCHAR},
+      #{rZbry,jdbcType=VARCHAR}, #{rNote,jdbcType=VARCHAR}
+
+
+
+    </update>
+    <select id="queryGuarList" resultType="com.zking.real.parking.model.Guard">
+        SELECT r_id ,rc.r_comname as r_ssgs, r_kssj, r_jssj,
+        r_bc, r_sd, r_dd, r_gw,
+        r_zbry, rd.r_note FROM r_guard rd
+        inner join r_company rc ON rd.r_ssgs = rc.r_comid where 1 =1
+        <if test="null!=rBc">
+            AND r_bc LIKE #{rBc}
+        </if>
+        <if test="null!=rDd">
+            AND r_dd LIKE #{rDd}
+        </if>
+        <if test="null!=rZbry">
+            AND r_zbry LIKE #{rZbry}
+        </if>
+    </select>
+    <select id="querySingGurad" resultType="com.zking.real.parking.model.Guard"
+            parameterType="com.zking.real.parking.model.Guard">
+      SELECT r_id,rc.r_comname AS r_ssgs, r_kssj, r_jssj,
+        r_bc, r_sd, r_dd, r_gw,
+        r_zbry, rd.r_note FROM r_guard rd
+        INNER JOIN r_company rc ON rd.r_ssgs = rc.r_comid
+
+      where r_id = #{rId}
+    </select>
+
+</mapper>

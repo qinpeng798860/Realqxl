@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.parking.mapper.ParkingMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.parking.model.Parking" >
+    <constructor >
+      <arg column="cwbh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ssfc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cwlb" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="gllb" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cwlx" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ysjg" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="yzjg" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="cwwz" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cwmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="zt" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="note" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="gsbh" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+
+     cwbh, ssfc, cwlb,gllb, cwlx, ysjg, yzjg,cwwz, cwmj, zt, note
+  </sql>
+  
+
+
+  <insert id="insert" parameterType="com.zking.real.parking.model.Parking" >
+    insert into r_parking (cwlb,gllb,cwlx,ysjg,yzjg,cwwz,cwmj,zt,note,cwbh,ssfc,gsbh
+      )
+    values(#{cwlb},
+      #{gllb}, #{cwlx}, #{ysjg}, #{yzjg},
+      #{cwwz}, #{cwmj}, #{zt}, #{note},#{cwbh},#{ssfc}
+      )
+  </insert>
+  <update id="updateParking" parameterType="com.zking.real.parking.model.Parking">
+    UPDATE r_parking SET  cwlb=#{cwlb},
+     cwlx=#{cwlx}, ysjg=#{ysjg}, yzjg=#{yzjg},
+      cwwz=#{cwwz}, cwmj=#{cwmj}, zt=#{zt}, note=#{note}  WHERE  cwbh = #{cwbh}
+  </update>
+  <delete id="delParking" parameterType="com.zking.real.parking.model.Parking">
+    delete from r_parking where cwbh = #{cwbh}
+
+  </delete>
+  <select id="queryParkingPage" resultType="com.zking.real.parking.model.Parking"
+          parameterType="com.zking.real.parking.model.Parking">
+    SELECT   cwbh, ssfc,rr.r_item AS gllb,ysjg, yzjg,cwwz, cwmj,r_comname AS gsbh,  note,rd.r_item AS cwlx, ri.r_item AS zt FROM
+
+    r_parking rp
+    INNER JOIN r_dict rd
+    ON
+    rp.cwlx = rd.r_value
+    INNER JOIN r_dict ri
+    ON
+    ri.r_value = rp.zt
+    INNER JOIN r_company rc
+    ON
+    rc.r_comid = rp.gsbh
+    INNER JOIN r_dict rr
+    ON
+    rp.gllb = rr.r_value
+    WHERE 1=1 AND rd.r_type ="车位类型" AND ri.r_type="车位状态"  AND rr.r_type = "管理类别"
+    <if test="null!=cwbh" >
+      AND  cwbh =#{cwbh}
+
+
+    </if>
+
+
+
+  </select>
+  <select id="querySingParking" resultType="com.zking.real.parking.model.Parking"
+          parameterType="com.zking.real.parking.model.Parking">
+    SELECT <include refid="Base_Column_List" /> from r_parking
+    where 1 = 1 AND cwbh = #{cwbh}
+
+
+
+  </select>
+
+
+</mapper>
