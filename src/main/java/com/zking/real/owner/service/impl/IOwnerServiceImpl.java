@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class IOwnerServiceImpl implements IOwnerService {
@@ -24,10 +25,6 @@ public class IOwnerServiceImpl implements IOwnerService {
         return ownerMapper.insert(record);
     }
 
-    @Override
-    public int insertSelective(Owner record) {
-        return 0;
-    }
 
     @Override
     public Owner selectByPrimaryKey(String rId) {
@@ -35,17 +32,25 @@ public class IOwnerServiceImpl implements IOwnerService {
     }
 
     @Override
-    public int updateByPrimaryKeySelective(Owner record) {
-        return 0;
+    public int updateOwner(Owner owner) {
+        return ownerMapper.updateOwner(owner);
     }
 
     @Override
-    public int updateByPrimaryKey(Owner record) {
-        return 0;
+    public int updateSingPhtot(String id) {
+        return ownerMapper.updateSingPhtot(id);
     }
 
     @Override
-    public List<Owner> queryOwner(Owner owner, PageBean bean) {
-        return ownerMapper.queryOwner(owner);
+    public  List<Map<String,Object>> queryOwnerPager(Owner owner, PageBean bean) {
+        return ownerMapper.queryOwnerPager(owner);
     }
+
+    @Override
+    public List<Map<String, Object>> queryOwnerReport(Owner owner) {
+        return ownerMapper.queryOwnerReport(owner);
+    }
+
+    //业主报表
+
 }

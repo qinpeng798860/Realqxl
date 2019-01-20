@@ -4,22 +4,22 @@ import com.zking.real.owner.model.Owner;
 import com.zking.real.util.PageBean;
 
 import java.util.List;
+import java.util.Map;
 
-public interface IOwnerSerivce {
+public interface IOwnerService {
 
     int deleteByPrimaryKey(String rId);
 
     int insert(Owner record);
 
-    int insertSelective(Owner record);
-
     Owner selectByPrimaryKey(String rId);
 
-    int updateByPrimaryKeySelective(Owner record);
-
-    int updateByPrimaryKey(Owner record);
+    int updateOwner(Owner owner);
 
     int updateSingPhtot(String id);
 
-    List<Owner> queryOwner(Owner owner, PageBean bean);
+    List<Map<String,Object>> queryOwnerPager(Owner owner, PageBean bean);
+
+    //业主报表
+    List<Map<String,Object>> queryOwnerReport(Owner owner);
 }
