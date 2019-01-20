@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.vegetation.mapper.GeenCheckMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.vegetation.model.GeenCheck" >
+    <constructor >
+      <arg column="r_cbm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_clvmc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_clvsj" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_cjcr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_cjcqk" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_cclqk" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_cnote" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_csj" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+    <sql id="Base_Column_List">
+        r_cbm,r_clvmc,r_clvsj,r_cjcr,r_cjcqk,r_cclqk,r_cnote,r_csj
+    </sql>
+  <insert id="insert" parameterType="com.zking.real.vegetation.model.GeenCheck" >
+    insert into r_geencheck (r_cbm, r_clvmc, r_clvsj, 
+      r_cjcr, r_cjcqk, r_cclqk, 
+      r_cnote)
+    values (#{rCbm,jdbcType=VARCHAR}, #{rClvmc,jdbcType=VARCHAR}, #{rClvsj,jdbcType=VARCHAR}, 
+      #{rCjcr,jdbcType=VARCHAR}, #{rCjcqk,jdbcType=VARCHAR}, #{rCclqk,jdbcType=VARCHAR}, 
+      #{rCnote,jdbcType=VARCHAR})
+  </insert>
+    <update id="updateGeenCheck" parameterType="com.zking.real.vegetation.model.GeenCheck">
+        update r_geencheck SET r_clvmc=#{rClvmc,jdbcType=VARCHAR },r_clvsj=#{rClvsj,jdbcType=VARCHAR },r_cjcr=#{rCjcr,jdbcType=VARCHAR },
+          r_cjcqk=#{rCjcqk,jdbcType=VARCHAR },r_cclqk=#{rCclqk,jdbcType=VARCHAR },r_cnote=#{rCnote,jdbcType=VARCHAR }
+          where r_cbm=#{rCbm,jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteSingGeenCheck">
+        DELETE  from r_geencheck where r_cbm=#{rCbm,jdbcType=VARCHAR}
+    </delete>
+    <select id="queryGeenCheckPager" resultType="map" parameterType="com.zking.real.vegetation.model.GeenCheck">
+        SELECT c.r_cbm,c.r_clvmc,c.r_clvsj,c.r_cjcr,c.r_cjcqk,c.r_cclqk,
+        c.r_cnote,g.r_gszmc mc FROM `r_geencheck` c
+        LEFT JOIN r_geenset g ON c.r_clvmc=g.r_gid WHERE 1=1
+        <if test="rCjcr!=null">
+            and c.r_cjcr like concat(concat('%',#{rCjcr}),'%')
+        </if>
+        order by c.r_csj desc
+    </select>
+</mapper>

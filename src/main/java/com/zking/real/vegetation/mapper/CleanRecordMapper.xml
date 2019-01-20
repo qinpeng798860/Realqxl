@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.vegetation.mapper.CleanRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.vegetation.model.CleanRecord" >
+    <constructor >
+      <arg column="r_qbm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_qid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_qqjr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_qqjsj" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_qqjqk" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_qnote" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_qsj" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+    <sql id="cleanRecord">
+        r_qbm,r_qid,r_qqjr,r_qqjsj,r_qqjqk,r_qnote,r_qsj
+    </sql>
+  <insert id="insert" parameterType="com.zking.real.vegetation.model.CleanRecord" >
+    insert into r_cleanrecord (r_qbm, r_qid, r_qqjr, 
+      r_qqjsj, r_qqjqk, r_qnote)
+    values (#{rQbm,jdbcType=VARCHAR}, #{rQid,jdbcType=VARCHAR}, #{rQqjr,jdbcType=VARCHAR}, 
+      #{rQqjsj,jdbcType=VARCHAR}, #{rQqjqk,jdbcType=VARCHAR}, #{rQnote,jdbcType=VARCHAR})
+  </insert>
+    <update id="updateCleanRecord" parameterType="com.zking.real.vegetation.model.CleanRecord">
+        UPDATE r_cleanrecord SET r_qid=#{rQid,jdbcType=VARCHAR},r_qqjr=#{rQqjr,jdbcType=VARCHAR},r_qqjsj=#{rQqjsj,jdbcType=VARCHAR},
+        r_qqjqk=#{rQqjqk,jdbcType=VARCHAR},r_qnote=#{rQnote,jdbcType=VARCHAR} where r_qbm=#{rQbm,jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteSingCleanRecord">
+        DELETE  from r_cleanrecord where r_qbm=#{rQbm,jdbcType=VARCHAR}
+    </delete>
+    <select id="queryCleanRecordPager" resultType="map"
+            parameterType="com.zking.real.vegetation.model.CleanRecord">
+        SELECT q.r_qbm,q.r_qid,q.r_qqjr,q.r_qqjsj,
+        q.r_qqjqk,q.r_qnote,q.r_qsj,c.r_amc mc
+        FROM r_cleanrecord q LEFT JOIN r_cleanarrangement c ON q.`r_qid`=c.`r_aid`
+        WHERE 1=1
+          <if test="rQqjr!=null">
+              and r_qqjr like concat(concat('%',#{rQqjr}),'%')
+          </if>
+         ORDER BY q.`r_qsj` DESC
+    </select>
+</mapper>

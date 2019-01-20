@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.vegetation.mapper.GeenSetMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.vegetation.model.GeenSet" >
+    <constructor >
+      <arg column="r_gbm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_gszmc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_gmj" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_gdd" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_gzrr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_glhsj" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_gzyzb" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_gNote" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_gsj" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+       <arg column="r_gid" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+    <sql id="Base_Column_List">
+        r_gbm,r_gszmc,r_gmj,r_gdd,r_gzrr,r_glhsj,r_gzyzb,r_gNote,r_gsj,r_gid
+    </sql>
+  <insert id="insert" parameterType="com.zking.real.vegetation.model.GeenSet" >
+    insert into r_geenset (r_gbm, r_gszmc, r_gmj, 
+      r_gdd, r_gzrr, r_glhsj, 
+      r_gzyzb, r_gNote,r_gid
+      )
+    values (#{rGbm,jdbcType=VARCHAR}, #{rGszmc,jdbcType=VARCHAR}, #{rGmj,jdbcType=VARCHAR}, 
+      #{rGdd,jdbcType=VARCHAR}, #{rGzrr,jdbcType=VARCHAR}, #{rGlhsj,jdbcType=VARCHAR}, 
+      #{rGzyzb,jdbcType=VARCHAR}, #{rGnote,jdbcType=VARCHAR},#{rGid,jdbcType=VARCHAR}
+      )
+  </insert>
+    <update id="updateGeenSet" parameterType="com.zking.real.vegetation.model.GeenSet">
+         update r_geenset SET r_gszmc=#{rGszmc,jdbcType=VARCHAR },r_gmj=#{rGmj,jdbcType=VARCHAR },r_gdd=#{rGdd,jdbcType=VARCHAR },
+          r_gzrr=#{rGzrr,jdbcType=VARCHAR },r_glhsj=#{rGlhsj,jdbcType=VARCHAR },r_gzyzb=#{rGzyzb,jdbcType=VARCHAR },r_gnote=#{rGnote,jdbcType=VARCHAR }
+          where r_gbm=#{rGbm,jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteSingGeenSet">
+        DELETE  from r_geenset where r_gbm=#{rGbm,jdbcType=VARCHAR}
+    </delete>
+    <select id="queryGeenSetPager" resultType="map" parameterType="com.zking.real.vegetation.model.GeenSet">
+           SELECT g.r_gbm,g.r_gszmc,g.r_gmj,g.r_gdd,g.r_gzrr,g.r_glhsj,g.r_gzyzb,g.r_gNote,g.r_gsj,r_gid
+           FROM `r_geenset` g WHERE 1=1
+           <if test="rGszmc!=null">
+               and r_gszmc like concat(concat('%',#{rGszmc}),'%')
+           </if>
+            <if test="rGdd!=null">
+                and r_gdd like concat(concat('%',#{rGdd}),'%')
+            </if>
+            <if test="rGmj!=null">
+                and r_gmj like concat(concat('%',#{rGmj}),'%')
+            </if>
+            <if test="rGzyzb!=null">
+                    and r_gzyzb like concat(concat('%',#{rGzyzb}),'%')
+            </if>
+           ORDER BY g.r_gsj desc
+    </select>
+</mapper>

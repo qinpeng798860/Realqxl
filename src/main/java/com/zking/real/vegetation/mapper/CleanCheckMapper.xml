@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.vegetation.mapper.CleanCheckMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.vegetation.model.CleanCheck" >
+    <constructor >
+      <arg column="r_qbm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_qjcrq" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_qqjr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_qjcr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_qjcqk" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_qjcdd" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_qnote" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_qsj" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+    <sql id="check">
+        r_qbm,r_qjcrq,r_qjcr,r_qqjr,r_qjcqk,r_qnote,r_qsj,r_qjcdd
+    </sql>
+  <insert id="insert" parameterType="com.zking.real.vegetation.model.CleanCheck" >
+    insert into r_cleancheck (r_qbm, r_qjcrq, r_qjcr,
+      r_qjcqk,r_qqjr, r_qnote,r_qjcdd
+      )
+    values (#{rQbm,jdbcType=VARCHAR}, #{rQjcrq,jdbcType=VARCHAR}, #{rQjcr,jdbcType=VARCHAR},
+      #{rQjcqk,jdbcType=VARCHAR},  #{rQqjr,jdbcType=VARCHAR},#{rQnote,jdbcType=VARCHAR},#{rQjcdd,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <update id="updateCleanCheck" parameterType="com.zking.real.vegetation.model.CleanCheck">
+        UPDATE  r_cleancheck SET r_qjcrq=#{rQjcrq,jdbcType=VARCHAR},r_qjcr=#{rQjcr,jdbcType=VARCHAR},r_qqjr= #{rQqjr,jdbcType=VARCHAR},
+        r_qjcqk=#{rQjcqk,jdbcType=VARCHAR},r_qnote=#{rQnote,jdbcType=VARCHAR},r_qjcdd=#{rQjcdd,jdbcType=TIMESTAMP}
+        where r_qbm=#{rQbm,jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteSingCleanCheck">
+        DELETE  from r_cleancheck where r_qbm=#{rQbm,jdbcType=VARCHAR}
+    </delete>
+    <select id="queryCleanCheckPager" resultType="map">
+        SELECT <include refid="check"/>
+        FROM r_cleancheck WHERE 1=1
+        <if test="rQjcr!=null">
+            and r_qjcr like concat(concat('%',#{rQjcr}),'%')
+        </if>
+        ORDER BY r_qsj DESC
+    </select>
+
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.vegetation.mapper.CleanArrangementMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.vegetation.model.CleanArrangement" >
+    <constructor >
+      <arg column="r_abm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_amc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_aqjdd" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_afzr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_aqjsj" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_aqjnr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_anote" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_asj" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="r_aid" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+    <sql id="cleanArrange">
+        r_abm,r_amc,r_aqjdd,r_afzr,r_aqjsj,r_aqjnr,r_anote,r_asj,r_aid
+    </sql>
+  <insert id="insert" parameterType="com.zking.real.vegetation.model.CleanArrangement" >
+    insert into r_cleanarrangement (r_abm, r_amc, r_aqjdd, 
+      r_afzr, r_aqjsj, r_aqjnr,
+      r_anote, r_aid
+      )
+    values (#{rAbm,jdbcType=VARCHAR}, #{rAmc,jdbcType=VARCHAR}, #{rAqjdd,jdbcType=VARCHAR}, 
+      #{rAfzr,jdbcType=VARCHAR}, #{rAqjsj,jdbcType=VARCHAR}, #{rAqjnr,jdbcType=VARCHAR},
+      #{rAnote,jdbcType=VARCHAR}, #{rAid,jdbcType=VARCHAR}
+      )
+  </insert>
+    <update id="updateCleanArrangement" parameterType="com.zking.real.vegetation.model.CleanArrangement">
+        update r_cleanarrangement SET r_amc=#{rAmc,jdbcType=VARCHAR},r_aqjdd=#{rAqjdd,jdbcType=VARCHAR},r_afzr=#{rAfzr,jdbcType=VARCHAR},
+        r_aqjsj=#{rAqjsj,jdbcType=VARCHAR},r_aqjnr=#{rAqjnr,jdbcType=VARCHAR},r_anote=#{rAnote,jdbcType=VARCHAR}
+        where r_abm=#{rAbm}
+    </update>
+    <delete id="deleteSingCleanArrangement">
+        DELETE  from r_cleanarrangement where r_abm=#{rAbm,jdbcType=VARCHAR}
+    </delete>
+    <select id="queryCleanArrangementPager" resultType="map"
+            parameterType="com.zking.real.vegetation.model.CleanArrangement">
+        SELECT <include refid="cleanArrange"/> from r_cleanarrangement where 1=1
+        <if test="rAqjdd!=null">
+            and r_aqjdd like concat(concat('%',#{rAqjdd}),'%')
+        </if>
+        <if test="rAfzr!=null">
+            and r_afzr like concat(concat('%',#{rAfzr}),'%')
+        </if>
+        order by r_asj DESC
+    </select>
+
+</mapper>

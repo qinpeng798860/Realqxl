@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.vegetation.mapper.VegeinfromMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.vegetation.model.Vegeinfrom" >
+    <constructor >
+      <arg column="r_zbbm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zbmc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zbzl" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zbsl" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_sl" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zbdw" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zbxx" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zbtd" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zbNote" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="r_zbsj" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    </constructor>
+  </resultMap>
+    <sql id="Base_Column_List" >
+       r_zbbm,r_zbmc,r_zbzl,r_zbsl,r_sl,r_zbdw,r_zbxx,r_zbtd,r_zbNote,r_zbsj
+    </sql>
+  <insert id="insert" parameterType="com.zking.real.vegetation.model.Vegeinfrom" >
+    insert into r_vegeinformation (r_zbbm, r_zbmc, r_zbzl, 
+      r_zbsl, r_sl, r_zbdw, 
+      r_zbxx, r_zbtd, r_zbNote
+      )
+    values (#{rZbbm,jdbcType=VARCHAR}, #{rZbmc,jdbcType=VARCHAR}, #{rZbzl,jdbcType=VARCHAR}, 
+      #{rZbsl,jdbcType=VARCHAR}, #{rSl,jdbcType=VARCHAR}, #{rZbdw,jdbcType=VARCHAR}, 
+      #{rZbxx,jdbcType=VARCHAR}, #{rZbtd,jdbcType=VARCHAR}, #{rZbnote,jdbcType=VARCHAR}
+      )
+  </insert>
+    <update id="updateVegeinfrom" parameterType="com.zking.real.vegetation.model.Vegeinfrom">
+        update r_vegeinformation SET r_zbmc=#{rZbmc,jdbcType=VARCHAR },r_zbzl=#{rZbzl,jdbcType=VARCHAR },r_zbsl=#{rZbsl,jdbcType=VARCHAR },
+        r_sl=#{rSl,jdbcType=VARCHAR },r_zbdw=#{rZbdw,jdbcType=VARCHAR },r_zbxx=#{rZbxx,jdbcType=VARCHAR },r_zbtd=#{rZbtd,jdbcType=VARCHAR },
+        r_zbNote=#{rZbnote,jdbcType=VARCHAR} where r_zbbm=#{rZbbm,jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteSingVegeinfrom">
+        DELETE  from r_vegeinformation
+        where r_zbbm=#{rZbbm,jdbcType=VARCHAR}
+    </delete>
+    <select id="queryVegeinfromPager" resultType="map"
+            parameterType="com.zking.real.vegetation.model.Vegeinfrom">
+        SELECT  v.r_zbbm,v.r_zbmc,v.r_zbzl,v.r_zbsl,v.r_sl,v.r_zbdw,v.r_zbxx,v.r_zbtd,v.r_zbNote,v.r_zbsj from r_vegeinformation v WHERE 1=1
+        <if test="rZbmc!=null ">
+            and r_zbmc like concat(concat('%',#{rZbmc}),'%')
+        </if>
+        <if test="rZbsl!=null ">
+            and r_zbsl like concat(concat('%',#{rZbsl}),'%')
+        </if>
+        <if test="rSl!=null ">
+            and r_sl like concat(concat('%',#{rSl}),'%')
+        </if>
+        <if test="rZbzl!=null ">
+            and r_zbzl like concat(concat('%',#{rZbzl}),'%')
+        </if>
+        ORDER  BY r_zbsj desc
+
+    </select>
+
+</mapper>
