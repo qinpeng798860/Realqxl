@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.owner.mapper.RoomMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.owner.model.Room" >
+    <constructor >
+      <arg column="fjbm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dyid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="fjmc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="hx" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cx" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="zx" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="lcx" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="jzmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="symj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="cph" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cwmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="cwh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ccsh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ccsmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="glmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="fjzt" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cd" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="kd" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="yt" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="wylx" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="fjxz" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="node" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+    <sql id="room">
+        fjbm,dyid,fjmc,hx,cx,zx,lcx,jzmj,symj,cph,cwmj,cwh,ccsh,ccsmj,glmj,fjzt,cd,kd,yt,wylx,fjxz,node
+    </sql>
+    <select id="queryRoomKey" resultType="com.zking.real.owner.model.Room"
+            parameterType="com.zking.real.owner.model.Room">
+        SELECT <include refid="room"/> FROM `r_room` WHERE dyid=#{dyid,jdbcType=VARCHAR};
+    </select>
+</mapper>

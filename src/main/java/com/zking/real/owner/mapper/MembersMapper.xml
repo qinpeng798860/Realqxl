@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.real.owner.mapper.MembersMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.owner.model.Members" >
+    <constructor >
+      <arg column="r_mid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_yzid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_cyxm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_lxdh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_xb" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_csrq" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zjlx" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zjhm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_gx" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_xl" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_gzdw" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_xp" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_Note" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_sj" jdbcType="DATE" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+    <sql id="Base_Column_List">
+        r_mid,r_yzid, r_cyxm, r_lxdh,r_xb, r_csrq, r_zjlx,r_zjhm, r_gx, r_xl, r_gzdw,r_xp, r_Note,r_sj
+    </sql>
+  <insert id="insert" parameterType="com.zking.real.owner.model.Members" >
+    insert into r_members (r_mid,r_yzid, r_cyxm, r_lxdh,
+      r_xb, r_csrq, r_zjlx, 
+      r_zjhm, r_gx, r_xl, r_gzdw, 
+      r_xp, r_Note)
+    values (#{rMid,jdbcType=VARCHAR},#{rYzid,jdbcType=VARCHAR}, #{rCyxm,jdbcType=VARCHAR}, #{rLxdh,jdbcType=VARCHAR},
+      #{rXb,jdbcType=VARCHAR}, #{rCsrq,jdbcType=VARCHAR }, #{rZjlx,jdbcType=VARCHAR},
+      #{rZjhm,jdbcType=VARCHAR}, #{rGx,jdbcType=VARCHAR}, #{rXl,jdbcType=VARCHAR}, #{rGzdw,jdbcType=VARCHAR}, 
+      #{rXp,jdbcType=VARCHAR}, #{rNote,jdbcType=VARCHAR})
+  </insert>
+    <delete id="deleteByPrimaryKey">
+            delete from r_members
+            where r_mid = #{rMid,jdbcType=VARCHAR}
+    </delete>
+    <select id="queryMembers" resultType="com.zking.real.owner.model.Members"
+            parameterType="com.zking.real.owner.model.Members">
+        	SELECT e.r_mid,e.r_yzid,e.r_cyxm,e.r_lxdh,e.r_xb,e.r_csrq,e.r_zjhm,e.r_zjlx,e.r_gx,e.r_xl,e.r_gzdw,e.r_xp ,e.r_Note
+        	FROM r_members e LEFT JOIN r_owner o
+	        ON e.`r_yzid`= o.r_id WHERE e.r_yzid=#{rYzid} ORDER BY e.r_sj DESC;
+    </select>
+
+</mapper>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.owner.mapper.OwnerMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.owner.model.Owner" >
+    <constructor >
+      <idArg column="r_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_eid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_yzlx" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_yzbm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_yzxm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_xb" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_csrq" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_mz" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_xl" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_gj" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_jg" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zjlx" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zjhm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_gzdw" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zw" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_sjhm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_yb" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_lxdz" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_jjlxr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_jjlxdh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_jjlxdz" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_khx" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_yhzh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_szpcs" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zt" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_note" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_xp" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_xshth" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_sj" jdbcType="DATE" javaType="java.util.Date" />
+       <!--<arg column="StringValue" jdbcType="VARCHAR" javaType="java.lang.String" />-->
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r_id, r_eid, r_yzlx, r_yzbm, r_yzxm, r_xb, r_csrq, r_mz, r_xl, r_gj, r_jg, r_zjlx,
+    r_zjhm, r_gzdw, r_zw, r_sjhm, r_yb, r_lxdz, r_jjlxr, r_jjlxdh, r_jjlxdz, r_khx, r_yhzh, 
+    r_szpcs, r_zt, r_note, r_xp, r_xshth,r_sj
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from "r_owner"
+    where r_id = #{rId,jdbcType=VARCHAR}
+  </select>
+    <select id="queryOwnerPager" resultType="map" parameterType="com.zking.real.owner.model.Owner">
+        SELECT o.r_id,o.r_yzxm,o.`r_yzlx`,o.r_yzbm,o.r_xb,o.`r_csrq`,o.`r_mz`,o.`r_xl`,
+        o.r_gj,o.r_jg,o.r_zjlx,o.r_zjhm,o.`r_gzdw`,o.r_zw,o.`r_sjhm`,o.`r_yb`,o.`r_lxdz`,
+        o.`r_jjlxr`,o.`r_jjlxdh`,o.`r_jjlxdz`,o.`r_szpcs`,o.`r_khx`,o.`r_yhzh`,o.`r_zt`,o.`r_note`,
+        o.`r_xp`,o.`r_xshth`,o.`r_sj`,d.`r_item` a,d1.r_item b,re.`r_zzmc`ab FROM r_owner o
+        LEFT JOIN r_residential re ON o.`r_eid`=re.`id`
+        LEFT JOIN r_dict d ON o.r_yzlx=d.r_value AND d.`r_type`='业主类型'
+        LEFT JOIN r_dict d1 ON o.r_zt=d1.r_value AND d1.`r_type`='业主状态' WHERE 1=1
+        <if test="rYzxm!=null">
+            and r_yzxm LIKE concat(concat('%',#{rYzxm}),'%')
+        </if>
+        <if test="rSjhm!=null">
+        and r_sjhm LIKE concat(concat('%',#{rSjhm}),'%')
+        </if>
+        <if test="rZjhm!=null">
+        and r_zjhm LIKE concat(concat('%',#{rZjhm}),'%')
+        </if>
+        <if test="rYzlx!=null">
+        and r_yzlx LIKE concat(concat('%',#{rYzlx}),'%')
+        </if>
+        ORDER BY o.r_sj DESC
+    </select>
+    <select id="queryOwnerReport" resultType="map" parameterType="com.zking.real.owner.model.Owner">
+        SELECT o.r_zt,COUNT(o.r_zt) su,d1.`r_item` a FROM r_owner o
+        LEFT JOIN r_residential re ON o.`r_eid`=re.`id`
+        LEFT JOIN r_dict d1 ON o.r_zt=d1.r_value AND d1.`r_type`='业主状态'
+        WHERE o.`r_eid`=#{rEid} GROUP BY  o.r_zt
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from r_owner
+    where r_id = #{rId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zking.real.owner.model.Owner" >
+    insert into r_owner (r_id, r_eid, r_yzlx,
+      r_yzxm, r_xb,
+      r_csrq, r_mz, r_xl, 
+      r_gj, r_jg, r_zjlx, r_zjhm, 
+      r_gzdw, r_zw, r_sjhm, 
+      r_yb, r_lxdz, r_jjlxr, 
+      r_jjlxdh, r_jjlxdz, r_khx, 
+      r_yhzh, r_szpcs, r_zt, 
+      r_note)
+    values (#{rId,jdbcType=VARCHAR}, #{rEid,jdbcType=VARCHAR}, #{rYzlx,jdbcType=VARCHAR},
+       #{rYzxm,jdbcType=VARCHAR}, #{rXb,jdbcType=VARCHAR},
+      #{rCsrq,jdbcType=VARCHAR}, #{rMz,jdbcType=VARCHAR}, #{rXl,jdbcType=VARCHAR},
+      #{rGj,jdbcType=VARCHAR}, #{rJg,jdbcType=VARCHAR}, #{rZjlx,jdbcType=VARCHAR}, #{rZjhm,jdbcType=VARCHAR}, 
+      #{rGzdw,jdbcType=VARCHAR}, #{rZw,jdbcType=VARCHAR}, #{rSjhm,jdbcType=VARCHAR}, 
+      #{rYb,jdbcType=VARCHAR}, #{rLxdz,jdbcType=VARCHAR}, #{rJjlxr,jdbcType=VARCHAR}, 
+      #{rJjlxdh,jdbcType=VARCHAR}, #{rJjlxdz,jdbcType=VARCHAR}, #{rKhx,jdbcType=VARCHAR}, 
+      #{rYhzh,jdbcType=VARCHAR}, #{rSzpcs,jdbcType=VARCHAR}, #{rZt,jdbcType=VARCHAR},
+      #{rNote,jdbcType=VARCHAR})
+  </insert>
+    <update id="updateSingPhtot" parameterType="com.zking.real.owner.model.Owner">
+        update r_owner SET  r_xp=#{rXp} where r_id=#{rId}
+    </update>
+    <update id="updateOwner" parameterType="com.zking.real.owner.model.Owner">
+        update r_owner SET r_eid=#{rEid,jdbcType=VARCHAR},r_yzlx= #{rYzlx,jdbcType=VARCHAR},r_yzxm=#{rYzxm,jdbcType=VARCHAR},r_xb=#{rXb,jdbcType=VARCHAR},
+        r_csrq= #{rCsrq,jdbcType=VARCHAR},r_mz=#{rMz,jdbcType=VARCHAR},r_xl=#{rXl,jdbcType=VARCHAR},r_gj=#{rGj,jdbcType=VARCHAR},r_jg=#{rJg,jdbcType=VARCHAR},
+        r_zjlx=#{rZjlx,jdbcType=VARCHAR},r_zjhm= #{rZjhm,jdbcType=VARCHAR},r_gzdw=#{rGzdw,jdbcType=VARCHAR},r_zw=#{rZw,jdbcType=VARCHAR},r_sjhm=#{rSjhm,jdbcType=VARCHAR},
+        r_yb=#{rYb,jdbcType=VARCHAR},r_lxdz=#{rLxdz,jdbcType=VARCHAR},r_jjlxr=#{rJjlxr,jdbcType=VARCHAR},r_jjlxdh=#{rJjlxdh,jdbcType=VARCHAR},r_jjlxdz= #{rJjlxdz,jdbcType=VARCHAR},
+        r_khx=#{rKhx,jdbcType=VARCHAR},r_yhzh=#{rYhzh,jdbcType=VARCHAR},r_szpcs=#{rSzpcs,jdbcType=VARCHAR},r_zt=#{rZt,jdbcType=VARCHAR},r_note=#{rNote,jdbcType=VARCHAR}
+        where r_id=#{rId,jdbcType=VARCHAR}
+    </update>
+</mapper>

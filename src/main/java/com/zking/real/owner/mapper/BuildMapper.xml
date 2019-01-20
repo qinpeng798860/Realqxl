@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.owner.mapper.BuildMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.owner.model.Build" >
+    <constructor >
+      <arg column="lybm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="lymc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="lygn" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="jglb" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="wsdj" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="jzmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="symj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="jzxkz" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ysxkz" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="jgrq" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="fdrq" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="note" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+    <sql id="Build">
+        lybm,lymc,lygn,jglb,wsdj,jzmj,symj,jzxkz,ysxkz,jgrq,fdrq,note
+    </sql>
+
+    <select id="queryBuild" resultType="com.zking.real.owner.model.Build">
+        select <include refid="Build"/> from r_building
+      </select>
+</mapper>
