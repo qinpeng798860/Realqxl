@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.system.mapper.CompayMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.system.model.Compay" >
+    <constructor >
+      <idArg column="r_comid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_comname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_note" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r_comid, r_comname, r_note
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from "r_company"
+    where r_comid = #{rComid,jdbcType=VARCHAR}
+  </select>
+  <select id="queryCompay" parameterType="com.zking.real.system.model.Compay" resultType="com.zking.real.system.model.Compay">
+
+    select <include refid="Base_Column_List"/>
+
+    from  r_company
+    where 1=1
+
+  </select>
+  <select id="queryCompayFwlx" resultType="java.util.Map"  parameterType="java.lang.String">
+    SELECT DISTINCT r_comname,r_dj,r_comid FROM r_company com
+    INNER JOIN r_server_type  st
+    ON com.r_comid=st.r_ssgs WHERE 1=1
+    AND r_lxmc=#{rFwId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from "r_company"
+    where r_comid = #{rComid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zking.real.system.model.Compay" >
+    insert into "r_company" (r_comid, r_comname, r_note
+      )
+    values (#{rComid,jdbcType=VARCHAR}, #{rComname,jdbcType=VARCHAR}, #{rNote,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.real.system.model.Compay" >
+    insert into "r_company"
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rComid != null" >
+        r_comid,
+      </if>
+      <if test="rComname != null" >
+        r_comname,
+      </if>
+      <if test="rNote != null" >
+        r_note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rComid != null" >
+        #{rComid,jdbcType=VARCHAR},
+      </if>
+      <if test="rComname != null" >
+        #{rComname,jdbcType=VARCHAR},
+      </if>
+      <if test="rNote != null" >
+        #{rNote,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.real.system.model.Compay" >
+    update "r_company"
+    <set >
+      <if test="rComname != null" >
+        r_comname = #{rComname,jdbcType=VARCHAR},
+      </if>
+      <if test="rNote != null" >
+        r_note = #{rNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where r_comid = #{rComid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.real.system.model.Compay" >
+    update "r_company"
+    set r_comname = #{rComname,jdbcType=VARCHAR},
+      r_note = #{rNote,jdbcType=VARCHAR}
+    where r_comid = #{rComid,jdbcType=VARCHAR}
+  </update>
+</mapper>

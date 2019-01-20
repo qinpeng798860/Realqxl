@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.system.mapper.SystemLogMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.system.model.SystemLog" >
+    <constructor >
+      <idArg column="logid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="logMethod" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="logPath" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="logParam" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="logDate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="logContext" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    logid, logMethod, logPath, logParam, logDate, logContext
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from "r_systemlog"
+    where logid = #{logid,jdbcType=VARCHAR}
+  </select>
+  <select id="queryLogPager" resultType="com.zking.real.system.model.SystemLog" parameterType="com.zking.real.system.vo.SystemLogVo">
+    select <include refid="Base_Column_List"/>
+    from r_systemlog where 1=1
+  <foreach collection="map" index="idx" item="val"  open="" >
+    <if test="idx == 'dateA' ">
+      and logDate  &gt;=concat(concat(#{val},' '),'00')
+    </if>
+   <if test="idx == 'dateB' "  >
+      and logDate &lt;=concat(concat(#{val},' '),'24')
+    </if>
+  </foreach>
+    <!--AND logdate>='2019-01-18 00' AND logdate<='2019-01-18 23'-->
+    order by logDate DESC
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from "r_systemlog"
+    where logid = #{logid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zking.real.system.model.SystemLog" >
+    insert into r_systemlog (logid, logMethod, logPath,
+      logParam, logDate, logContext
+      )
+    values (#{logid,jdbcType=VARCHAR}, #{logmethod,jdbcType=VARCHAR}, #{logpath,jdbcType=VARCHAR}, 
+      #{logparam,jdbcType=VARCHAR}, #{logdate,jdbcType=TIMESTAMP}, #{logcontext,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.real.system.model.SystemLog" >
+    insert into "r_systemlog"
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logid != null" >
+        logid,
+      </if>
+      <if test="logmethod != null" >
+        logMethod,
+      </if>
+      <if test="logpath != null" >
+        logPath,
+      </if>
+      <if test="logparam != null" >
+        logParam,
+      </if>
+      <if test="logdate != null" >
+        logDate,
+      </if>
+      <if test="logcontext != null" >
+        logContext,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logid != null" >
+        #{logid,jdbcType=VARCHAR},
+      </if>
+      <if test="logmethod != null" >
+        #{logmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="logpath != null" >
+        #{logpath,jdbcType=VARCHAR},
+      </if>
+      <if test="logparam != null" >
+        #{logparam,jdbcType=VARCHAR},
+      </if>
+      <if test="logdate != null" >
+        #{logdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logcontext != null" >
+        #{logcontext,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.real.system.model.SystemLog" >
+    update "r_systemlog"
+    <set >
+      <if test="logmethod != null" >
+        logMethod = #{logmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="logpath != null" >
+        logPath = #{logpath,jdbcType=VARCHAR},
+      </if>
+      <if test="logparam != null" >
+        logParam = #{logparam,jdbcType=VARCHAR},
+      </if>
+      <if test="logdate != null" >
+        logDate = #{logdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logcontext != null" >
+        logContext = #{logcontext,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where logid = #{logid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.real.system.model.SystemLog" >
+    update "r_systemlog"
+    set logMethod = #{logmethod,jdbcType=VARCHAR},
+      logPath = #{logpath,jdbcType=VARCHAR},
+      logParam = #{logparam,jdbcType=VARCHAR},
+      logDate = #{logdate,jdbcType=TIMESTAMP},
+      logContext = #{logcontext,jdbcType=VARCHAR}
+    where logid = #{logid,jdbcType=VARCHAR}
+  </update>
+</mapper>

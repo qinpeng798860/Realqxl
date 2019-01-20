@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.estate.mapper.RoomMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.estate.model.Room" >
+    <constructor >
+      <idArg column="fjbm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="fjmc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="hx" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cx" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="zx" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="lcx" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="jzmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="symj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="cph" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cwmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="cwh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ccsh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ccsmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="glmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="fjzt" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cd" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="kd" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="yt" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="wylx" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="fjxz" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="node" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fjbm, fjmc, hx, cx, zx, lcx, jzmj, symj, cph, cwmj, cwh, ccsh, ccsmj, glmj, fjzt, 
+    cd, kd, yt, wylx, fjxz, node
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from "r_room"
+    where fjbm = #{fjbm,jdbcType=VARCHAR}
+  </select>
+    <select id="queryUnitSelect" resultType="com.zking.real.estate.model.Room">
+    SELECT fjbm,fjh,fjmc FROM r_room WHERE 1=1 AND dybh=#{paramId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from "r_room"
+    where fjbm = #{fjbm,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zking.real.estate.model.Room" >
+    insert into "r_room" (fjbm, fjmc, hx, 
+      cx, zx, lcx, jzmj, 
+      symj, cph, cwmj, cwh, 
+      ccsh, ccsmj, glmj, fjzt, 
+      cd, kd, yt, wylx, 
+      fjxz, node)
+    values (#{fjbm,jdbcType=VARCHAR}, #{fjmc,jdbcType=VARCHAR}, #{hx,jdbcType=VARCHAR}, 
+      #{cx,jdbcType=VARCHAR}, #{zx,jdbcType=VARCHAR}, #{lcx,jdbcType=INTEGER}, #{jzmj,jdbcType=REAL}, 
+      #{symj,jdbcType=REAL}, #{cph,jdbcType=VARCHAR}, #{cwmj,jdbcType=REAL}, #{cwh,jdbcType=VARCHAR}, 
+      #{ccsh,jdbcType=VARCHAR}, #{ccsmj,jdbcType=REAL}, #{glmj,jdbcType=REAL}, #{fjzt,jdbcType=VARCHAR}, 
+      #{cd,jdbcType=REAL}, #{kd,jdbcType=REAL}, #{yt,jdbcType=VARCHAR}, #{wylx,jdbcType=VARCHAR}, 
+      #{fjxz,jdbcType=VARCHAR}, #{node,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.real.estate.model.Room" >
+    insert into "r_room"
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fjbm != null" >
+        fjbm,
+      </if>
+      <if test="fjmc != null" >
+        fjmc,
+      </if>
+      <if test="hx != null" >
+        hx,
+      </if>
+      <if test="cx != null" >
+        cx,
+      </if>
+      <if test="zx != null" >
+        zx,
+      </if>
+      <if test="lcx != null" >
+        lcx,
+      </if>
+      <if test="jzmj != null" >
+        jzmj,
+      </if>
+      <if test="symj != null" >
+        symj,
+      </if>
+      <if test="cph != null" >
+        cph,
+      </if>
+      <if test="cwmj != null" >
+        cwmj,
+      </if>
+      <if test="cwh != null" >
+        cwh,
+      </if>
+      <if test="ccsh != null" >
+        ccsh,
+      </if>
+      <if test="ccsmj != null" >
+        ccsmj,
+      </if>
+      <if test="glmj != null" >
+        glmj,
+      </if>
+      <if test="fjzt != null" >
+        fjzt,
+      </if>
+      <if test="cd != null" >
+        cd,
+      </if>
+      <if test="kd != null" >
+        kd,
+      </if>
+      <if test="yt != null" >
+        yt,
+      </if>
+      <if test="wylx != null" >
+        wylx,
+      </if>
+      <if test="fjxz != null" >
+        fjxz,
+      </if>
+      <if test="node != null" >
+        node,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fjbm != null" >
+        #{fjbm,jdbcType=VARCHAR},
+      </if>
+      <if test="fjmc != null" >
+        #{fjmc,jdbcType=VARCHAR},
+      </if>
+      <if test="hx != null" >
+        #{hx,jdbcType=VARCHAR},
+      </if>
+      <if test="cx != null" >
+        #{cx,jdbcType=VARCHAR},
+      </if>
+      <if test="zx != null" >
+        #{zx,jdbcType=VARCHAR},
+      </if>
+      <if test="lcx != null" >
+        #{lcx,jdbcType=INTEGER},
+      </if>
+      <if test="jzmj != null" >
+        #{jzmj,jdbcType=REAL},
+      </if>
+      <if test="symj != null" >
+        #{symj,jdbcType=REAL},
+      </if>
+      <if test="cph != null" >
+        #{cph,jdbcType=VARCHAR},
+      </if>
+      <if test="cwmj != null" >
+        #{cwmj,jdbcType=REAL},
+      </if>
+      <if test="cwh != null" >
+        #{cwh,jdbcType=VARCHAR},
+      </if>
+      <if test="ccsh != null" >
+        #{ccsh,jdbcType=VARCHAR},
+      </if>
+      <if test="ccsmj != null" >
+        #{ccsmj,jdbcType=REAL},
+      </if>
+      <if test="glmj != null" >
+        #{glmj,jdbcType=REAL},
+      </if>
+      <if test="fjzt != null" >
+        #{fjzt,jdbcType=VARCHAR},
+      </if>
+      <if test="cd != null" >
+        #{cd,jdbcType=REAL},
+      </if>
+      <if test="kd != null" >
+        #{kd,jdbcType=REAL},
+      </if>
+      <if test="yt != null" >
+        #{yt,jdbcType=VARCHAR},
+      </if>
+      <if test="wylx != null" >
+        #{wylx,jdbcType=VARCHAR},
+      </if>
+      <if test="fjxz != null" >
+        #{fjxz,jdbcType=VARCHAR},
+      </if>
+      <if test="node != null" >
+        #{node,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.real.estate.model.Room" >
+    update "r_room"
+    <set >
+      <if test="fjmc != null" >
+        fjmc = #{fjmc,jdbcType=VARCHAR},
+      </if>
+      <if test="hx != null" >
+        hx = #{hx,jdbcType=VARCHAR},
+      </if>
+      <if test="cx != null" >
+        cx = #{cx,jdbcType=VARCHAR},
+      </if>
+      <if test="zx != null" >
+        zx = #{zx,jdbcType=VARCHAR},
+      </if>
+      <if test="lcx != null" >
+        lcx = #{lcx,jdbcType=INTEGER},
+      </if>
+      <if test="jzmj != null" >
+        jzmj = #{jzmj,jdbcType=REAL},
+      </if>
+      <if test="symj != null" >
+        symj = #{symj,jdbcType=REAL},
+      </if>
+      <if test="cph != null" >
+        cph = #{cph,jdbcType=VARCHAR},
+      </if>
+      <if test="cwmj != null" >
+        cwmj = #{cwmj,jdbcType=REAL},
+      </if>
+      <if test="cwh != null" >
+        cwh = #{cwh,jdbcType=VARCHAR},
+      </if>
+      <if test="ccsh != null" >
+        ccsh = #{ccsh,jdbcType=VARCHAR},
+      </if>
+      <if test="ccsmj != null" >
+        ccsmj = #{ccsmj,jdbcType=REAL},
+      </if>
+      <if test="glmj != null" >
+        glmj = #{glmj,jdbcType=REAL},
+      </if>
+      <if test="fjzt != null" >
+        fjzt = #{fjzt,jdbcType=VARCHAR},
+      </if>
+      <if test="cd != null" >
+        cd = #{cd,jdbcType=REAL},
+      </if>
+      <if test="kd != null" >
+        kd = #{kd,jdbcType=REAL},
+      </if>
+      <if test="yt != null" >
+        yt = #{yt,jdbcType=VARCHAR},
+      </if>
+      <if test="wylx != null" >
+        wylx = #{wylx,jdbcType=VARCHAR},
+      </if>
+      <if test="fjxz != null" >
+        fjxz = #{fjxz,jdbcType=VARCHAR},
+      </if>
+      <if test="node != null" >
+        node = #{node,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fjbm = #{fjbm,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.real.estate.model.Room" >
+    update "r_room"
+    set fjmc = #{fjmc,jdbcType=VARCHAR},
+      hx = #{hx,jdbcType=VARCHAR},
+      cx = #{cx,jdbcType=VARCHAR},
+      zx = #{zx,jdbcType=VARCHAR},
+      lcx = #{lcx,jdbcType=INTEGER},
+      jzmj = #{jzmj,jdbcType=REAL},
+      symj = #{symj,jdbcType=REAL},
+      cph = #{cph,jdbcType=VARCHAR},
+      cwmj = #{cwmj,jdbcType=REAL},
+      cwh = #{cwh,jdbcType=VARCHAR},
+      ccsh = #{ccsh,jdbcType=VARCHAR},
+      ccsmj = #{ccsmj,jdbcType=REAL},
+      glmj = #{glmj,jdbcType=REAL},
+      fjzt = #{fjzt,jdbcType=VARCHAR},
+      cd = #{cd,jdbcType=REAL},
+      kd = #{kd,jdbcType=REAL},
+      yt = #{yt,jdbcType=VARCHAR},
+      wylx = #{wylx,jdbcType=VARCHAR},
+      fjxz = #{fjxz,jdbcType=VARCHAR},
+      node = #{node,jdbcType=VARCHAR}
+    where fjbm = #{fjbm,jdbcType=VARCHAR}
+  </update>
+</mapper>

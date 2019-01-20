@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.server.mapper.AllotMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.server.model.Allot" >
+    <constructor >
+      <idArg column="r_allid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_fwbm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_fzr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_gsbm" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r_allid, r_fwbm, r_fzr, r_gsbm
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from "r_allot"
+    where r_allid = #{rAllid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from "r_allot"
+    where r_allid = #{rAllid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zking.real.server.model.Allot" >
+    insert into r_allot (r_allid, r_fwbm, r_fzr,
+      r_gsbm)
+    values (#{rAllid,jdbcType=VARCHAR}, #{rFwbm,jdbcType=VARCHAR}, #{rFzr,jdbcType=VARCHAR}, 
+      #{rGsbm,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.real.server.model.Allot" >
+    insert into "r_allot"
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rAllid != null" >
+        r_allid,
+      </if>
+      <if test="rFwbm != null" >
+        r_fwbm,
+      </if>
+      <if test="rFzr != null" >
+        r_fzr,
+      </if>
+      <if test="rGsbm != null" >
+        r_gsbm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rAllid != null" >
+        #{rAllid,jdbcType=VARCHAR},
+      </if>
+      <if test="rFwbm != null" >
+        #{rFwbm,jdbcType=VARCHAR},
+      </if>
+      <if test="rFzr != null" >
+        #{rFzr,jdbcType=VARCHAR},
+      </if>
+      <if test="rGsbm != null" >
+        #{rGsbm,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.real.server.model.Allot" >
+    update "r_allot"
+    <set >
+      <if test="rFwbm != null" >
+        r_fwbm = #{rFwbm,jdbcType=VARCHAR},
+      </if>
+      <if test="rFzr != null" >
+        r_fzr = #{rFzr,jdbcType=VARCHAR},
+      </if>
+      <if test="rGsbm != null" >
+        r_gsbm = #{rGsbm,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where r_allid = #{rAllid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.real.server.model.Allot" >
+    update "r_allot"
+    set r_fwbm = #{rFwbm,jdbcType=VARCHAR},
+      r_fzr = #{rFzr,jdbcType=VARCHAR},
+      r_gsbm = #{rGsbm,jdbcType=VARCHAR}
+    where r_allid = #{rAllid,jdbcType=VARCHAR}
+  </update>
+</mapper>

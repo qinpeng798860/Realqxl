@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.estate.mapper.ResitentIalMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.estate.model.ResitentIal" >
+    <constructor >
+      <idArg column="r_eid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_ssgs" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zzbh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zzmc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zdmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="r_jzmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="r_ldmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="r_dlmj" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="r_fzr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_zzdz" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_gsmc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_frdb" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_lxr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_lxdh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_lxdz" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_note" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r_eid, r_ssgs, r_zzbh, r_zzmc, r_zdmj, r_jzmj, r_ldmj, r_dlmj, r_fzr, r_zzdz, r_gsmc,
+    r_frdb, r_lxr, r_lxdh, r_lxdz, r_note
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from "r_residential"
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+    <select id="queryResitentSelect" resultType="com.zking.real.estate.model.ResitentIal"
+            parameterType="com.zking.real.estate.model.ResitentIal">
+
+      SELECT  r_zzbh,r_zzmc
+      from  r_RESIDENTIAL
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from "r_residential"
+    where r_eid = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zking.real.estate.model.ResitentIal" >
+    insert into "r_residential" (r_eid, r_ssgs, r_zzbh,
+      r_zzmc, r_zdmj, r_jzmj, r_ldmj, 
+      r_dlmj, r_fzr, r_zzdz, r_gsmc, 
+      r_frdb, r_lxr, r_lxdh, 
+      r_lxdz, r_note)
+    values (#{id,jdbcType=VARCHAR}, #{rSsgs,jdbcType=VARCHAR}, #{rZzbh,jdbcType=VARCHAR}, 
+      #{rZzmc,jdbcType=VARCHAR}, #{rZdmj,jdbcType=REAL}, #{rJzmj,jdbcType=REAL}, #{rLdmj,jdbcType=REAL}, 
+      #{rDlmj,jdbcType=REAL}, #{rFzr,jdbcType=VARCHAR}, #{rZzdz,jdbcType=VARCHAR}, #{rGsmc,jdbcType=VARCHAR}, 
+      #{rFrdb,jdbcType=VARCHAR}, #{rLxr,jdbcType=VARCHAR}, #{rLxdh,jdbcType=VARCHAR}, 
+      #{rLxdz,jdbcType=VARCHAR}, #{rNote,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.real.estate.model.ResitentIal" >
+    insert into "r_residential"
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rEid != null" >
+        r_eid,
+      </if>
+      <if test="rSsgs != null" >
+        r_ssgs,
+      </if>
+      <if test="rZzbh != null" >
+        r_zzbh,
+      </if>
+      <if test="rZzmc != null" >
+        r_zzmc,
+      </if>
+      <if test="rZdmj != null" >
+        r_zdmj,
+      </if>
+      <if test="rJzmj != null" >
+        r_jzmj,
+      </if>
+      <if test="rLdmj != null" >
+        r_ldmj,
+      </if>
+      <if test="rDlmj != null" >
+        r_dlmj,
+      </if>
+      <if test="rFzr != null" >
+        r_fzr,
+      </if>
+      <if test="rZzdz != null" >
+        r_zzdz,
+      </if>
+      <if test="rGsmc != null" >
+        r_gsmc,
+      </if>
+      <if test="rFrdb != null" >
+        r_frdb,
+      </if>
+      <if test="rLxr != null" >
+        r_lxr,
+      </if>
+      <if test="rLxdh != null" >
+        r_lxdh,
+      </if>
+      <if test="rLxdz != null" >
+        r_lxdz,
+      </if>
+      <if test="rNote != null" >
+        r_note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rEid != null" >
+        #{rEid,jdbcType=VARCHAR},
+      </if>
+      <if test="rSsgs != null" >
+        #{rSsgs,jdbcType=VARCHAR},
+      </if>
+      <if test="rZzbh != null" >
+        #{rZzbh,jdbcType=VARCHAR},
+      </if>
+      <if test="rZzmc != null" >
+        #{rZzmc,jdbcType=VARCHAR},
+      </if>
+      <if test="rZdmj != null" >
+        #{rZdmj,jdbcType=REAL},
+      </if>
+      <if test="rJzmj != null" >
+        #{rJzmj,jdbcType=REAL},
+      </if>
+      <if test="rLdmj != null" >
+        #{rLdmj,jdbcType=REAL},
+      </if>
+      <if test="rDlmj != null" >
+        #{rDlmj,jdbcType=REAL},
+      </if>
+      <if test="rFzr != null" >
+        #{rFzr,jdbcType=VARCHAR},
+      </if>
+      <if test="rZzdz != null" >
+        #{rZzdz,jdbcType=VARCHAR},
+      </if>
+      <if test="rGsmc != null" >
+        #{rGsmc,jdbcType=VARCHAR},
+      </if>
+      <if test="rFrdb != null" >
+        #{rFrdb,jdbcType=VARCHAR},
+      </if>
+      <if test="rLxr != null" >
+        #{rLxr,jdbcType=VARCHAR},
+      </if>
+      <if test="rLxdh != null" >
+        #{rLxdh,jdbcType=VARCHAR},
+      </if>
+      <if test="rLxdz != null" >
+        #{rLxdz,jdbcType=VARCHAR},
+      </if>
+      <if test="rNote != null" >
+        #{rNote,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.real.estate.model.ResitentIal" >
+    update "r_residential"
+    <set >
+      <if test="rSsgs != null" >
+        r_ssgs = #{rSsgs,jdbcType=VARCHAR},
+      </if>
+      <if test="rZzbh != null" >
+        r_zzbh = #{rZzbh,jdbcType=VARCHAR},
+      </if>
+      <if test="rZzmc != null" >
+        r_zzmc = #{rZzmc,jdbcType=VARCHAR},
+      </if>
+      <if test="rZdmj != null" >
+        r_zdmj = #{rZdmj,jdbcType=REAL},
+      </if>
+      <if test="rJzmj != null" >
+        r_jzmj = #{rJzmj,jdbcType=REAL},
+      </if>
+      <if test="rLdmj != null" >
+        r_ldmj = #{rLdmj,jdbcType=REAL},
+      </if>
+      <if test="rDlmj != null" >
+        r_dlmj = #{rDlmj,jdbcType=REAL},
+      </if>
+      <if test="rFzr != null" >
+        r_fzr = #{rFzr,jdbcType=VARCHAR},
+      </if>
+      <if test="rZzdz != null" >
+        r_zzdz = #{rZzdz,jdbcType=VARCHAR},
+      </if>
+      <if test="rGsmc != null" >
+        r_gsmc = #{rGsmc,jdbcType=VARCHAR},
+      </if>
+      <if test="rFrdb != null" >
+        r_frdb = #{rFrdb,jdbcType=VARCHAR},
+      </if>
+      <if test="rLxr != null" >
+        r_lxr = #{rLxr,jdbcType=VARCHAR},
+      </if>
+      <if test="rLxdh != null" >
+        r_lxdh = #{rLxdh,jdbcType=VARCHAR},
+      </if>
+      <if test="rLxdz != null" >
+        r_lxdz = #{rLxdz,jdbcType=VARCHAR},
+      </if>
+      <if test="rNote != null" >
+        r_note = #{rNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where r_eid = #{rEid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.real.estate.model.ResitentIal" >
+    update "r_residential"
+    set r_ssgs = #{rSsgs,jdbcType=VARCHAR},
+      r_zzbh = #{rZzbh,jdbcType=VARCHAR},
+      r_zzmc = #{rZzmc,jdbcType=VARCHAR},
+      r_zdmj = #{rZdmj,jdbcType=REAL},
+      r_jzmj = #{rJzmj,jdbcType=REAL},
+      r_ldmj = #{rLdmj,jdbcType=REAL},
+      r_dlmj = #{rDlmj,jdbcType=REAL},
+      r_fzr = #{rFzr,jdbcType=VARCHAR},
+      r_zzdz = #{rZzdz,jdbcType=VARCHAR},
+      r_gsmc = #{rGsmc,jdbcType=VARCHAR},
+      r_frdb = #{rFrdb,jdbcType=VARCHAR},
+      r_lxr = #{rLxr,jdbcType=VARCHAR},
+      r_lxdh = #{rLxdh,jdbcType=VARCHAR},
+      r_lxdz = #{rLxdz,jdbcType=VARCHAR},
+      r_note = #{rNote,jdbcType=VARCHAR}
+    where r_eid = #{rEid,jdbcType=VARCHAR}
+  </update>
+</mapper>

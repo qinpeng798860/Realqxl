@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.system.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.system.model.User" >
+    <constructor >
+      <idArg column="r_userid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_username" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_password" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r_userid, r_username, r_password
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT r_userid,r_username,r_password
+    FROM r_user WHERE r_username=#{rUsername} AND r_password=#{rPassword}
+
+  </select>
+    <select id="queryUserPager" resultType="com.zking.real.system.vo.UserVo"
+            parameterType="com.zking.real.system.model.User">
+      SELECT r_userid,r_username,r_password,r.`rolename`,r.roleid as rRoleId
+      FROM r_user u
+      INNER JOIN r_user_role ur
+      ON  u.`r_userid`=ur.`userid`
+      INNER JOIN r_role r
+      ON ur.`roleid`=r.`roleid`
+      <if test="rUsername!=null and rUsername!=''">
+        and r_username like concat(concat('%',#{rUsername}),'%')
+
+      </if>
+    </select>
+  <select id="selectSingUser" resultType="com.zking.real.system.model.User"
+          parameterType="com.zking.real.system.model.User">
+
+    select <include refid="Base_Column_List"/>
+    from r_user where r_username=#{rUsername}
+
+  </select>
+  <select id="selectLoginUser" resultType="com.zking.real.system.model.User"
+          parameterType="com.zking.real.system.model.User">
+     SELECT r_userid,r_username,r_password,roleid AS rRoleId FROM r_user u
+    INNER JOIN r_user_role ur
+    ON u.r_userid=ur.userid
+    WHERE 1=1 AND u.r_username=#{rUsername} AND u.r_password=#{rPassword}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from r_user
+    where r_userid = #{rUserid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zking.real.system.model.User" >
+    insert into r_user (r_userid, r_username, r_password
+      )
+    values (#{rUserid,jdbcType=VARCHAR}, #{rUsername,jdbcType=VARCHAR}, #{rPassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.real.system.model.User" >
+    insert into "r_user"
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rUserid != null" >
+        r_userid,
+      </if>
+      <if test="rUsername != null" >
+        r_username,
+      </if>
+      <if test="rPassword != null" >
+        r_password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rUserid != null" >
+        #{rUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="rUsername != null" >
+        #{rUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="rPassword != null" >
+        #{rPassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.real.system.model.User" >
+    update "r_user"
+    <set >
+      <if test="rUsername != null" >
+        r_username = #{rUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="rPassword != null" >
+        r_password = #{rPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where r_userid = #{rUserid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.real.system.model.User" >
+    update r_user
+    set r_username = #{rUsername,jdbcType=VARCHAR},
+      r_password = #{rPassword,jdbcType=VARCHAR}
+    where r_userid = #{rUserid,jdbcType=VARCHAR}
+  </update>
+  <update id="editUserRole" parameterType="com.zking.real.system.vo.UserVo">
+    update r_user_role set roleid=#{roleid} where userid=#{rUserid}
+  </update>
+</mapper>

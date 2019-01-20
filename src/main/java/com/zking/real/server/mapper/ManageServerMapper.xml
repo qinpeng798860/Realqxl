@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.real.server.mapper.ManageServerMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.real.server.model.ManageServer" >
+    <constructor >
+      <idArg column="r_blr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_bldw" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_lxdh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_blsj" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="r_jssj" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="r_bljg" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_fj" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_blid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="r_serid" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r_blr,r_serid,r_bldw, r_lxdh, r_blsj, r_jssj, r_bljg, r_fj,r_blid
+      </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from "r_manageserver"
+    where r_blr = #{rBlr,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from "r_manageserver"
+    where r_blr = #{rBlr,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zking.real.server.model.ManageServer" >
+    insert into r_manageserver (r_blid,r_serid,r_blr, r_bldw, r_lxdh,
+      r_blsj, r_bljg,
+      r_fj)
+    values (#{rBlid,jdbcType=VARCHAR},#{rSerid,jdbcType=VARCHAR},#{rBlr,jdbcType=VARCHAR}, #{rBldw,jdbcType=VARCHAR}, #{rLxdh,jdbcType=VARCHAR},
+      #{rBlsj,jdbcType=TIMESTAMP}, #{rBljg,jdbcType=VARCHAR},
+      #{rFj,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.real.server.model.ManageServer" >
+    insert into "r_manageserver"
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rBlr != null" >
+        r_blr,
+      </if>
+      <if test="rBldw != null" >
+        r_bldw,
+      </if>
+      <if test="rLxdh != null" >
+        r_lxdh,
+      </if>
+      <if test="rBlsj != null" >
+        r_blsj,
+      </if>
+      <if test="rJssj != null" >
+        r_jssj,
+      </if>
+      <if test="rBljg != null" >
+        r_bljg,
+      </if>
+      <if test="rFj != null" >
+        r_fj,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rBlr != null" >
+        #{rBlr,jdbcType=VARCHAR},
+      </if>
+      <if test="rBldw != null" >
+        #{rBldw,jdbcType=VARCHAR},
+      </if>
+      <if test="rLxdh != null" >
+        #{rLxdh,jdbcType=VARCHAR},
+      </if>
+      <if test="rBlsj != null" >
+        #{rBlsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rJssj != null" >
+        #{rJssj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rBljg != null" >
+        #{rBljg,jdbcType=VARCHAR},
+      </if>
+      <if test="rFj != null" >
+        #{rFj,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.real.server.model.ManageServer" >
+    update "r_manageserver"
+    <set >
+      <if test="rBldw != null" >
+        r_bldw = #{rBldw,jdbcType=VARCHAR},
+      </if>
+      <if test="rLxdh != null" >
+        r_lxdh = #{rLxdh,jdbcType=VARCHAR},
+      </if>
+      <if test="rBlsj != null" >
+        r_blsj = #{rBlsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rJssj != null" >
+        r_jssj = #{rJssj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rBljg != null" >
+        r_bljg = #{rBljg,jdbcType=VARCHAR},
+      </if>
+      <if test="rFj != null" >
+        r_fj = #{rFj,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where r_blr = #{rBlr,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.real.server.model.ManageServer" >
+    update "r_manageserver"
+    set r_bldw = #{rBldw,jdbcType=VARCHAR},
+      r_lxdh = #{rLxdh,jdbcType=VARCHAR},
+      r_blsj = #{rBlsj,jdbcType=TIMESTAMP},
+      r_jssj = #{rJssj,jdbcType=TIMESTAMP},
+      r_bljg = #{rBljg,jdbcType=VARCHAR},
+      r_fj = #{rFj,jdbcType=VARCHAR}
+    where r_blr = #{rBlr,jdbcType=VARCHAR}
+  </update>
+    <update id="updateManagebljg" parameterType="com.zking.real.server.model.ManageServer">
+      update r_manageserver set r_bljg=#{rBljg},r_jssj=#{rJssj} where r_blid=#{rBlid}
+    </update>
+</mapper>
