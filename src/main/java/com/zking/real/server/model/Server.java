@@ -3,13 +3,16 @@ package com.zking.real.server.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @ToString
-public class Server {
+public class Server implements Serializable{
     private String id;
 
     private String rFc;
+
+    private String rSsgs;
 
     private String rLymc;
 
@@ -22,7 +25,7 @@ public class Server {
     private String rLxdh;
 
     /*时间格式转换*/
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date rSqsj;
 
     private String rFwlx;
@@ -36,6 +39,15 @@ public class Server {
     private Float rFwfy;
 
     private String rSpyj;
+
+
+    public String getrSsgs() {
+        return rSsgs;
+    }
+
+    public void setrSsgs(String rSsgs) {
+        this.rSsgs = rSsgs;
+    }
 
     public Server(String id, String rFc, String rLymc, String rDy, String rFjmc, String rSqr, String rLxdh, Date rSqsj, String rFwlx, String rZt, Float rLjqfze, String rSqsx, Float rFwfy, String rSpyj) {
         this.id = id;

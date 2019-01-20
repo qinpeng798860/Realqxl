@@ -30,4 +30,19 @@ public class ServerTypeServiceImpl implements IServerTypeService {
     public int updateServerType(ServerType serverType) {
         return serverTypeMapper.updateServerType(serverType);
     }
+
+    @Override
+    public int updateServerTypeStatus(ServerType serverType) {
+        return serverTypeMapper.updateServerTypeStatus(serverType);
+    }
+
+    @Override
+    public int delServerType(ServerType serverType) {
+        return serverTypeMapper.delServerType(serverType);
+    }
+
+    @Override
+    public List<ServerType> queryServerTypeSelect() {
+        return serverTypeMapper.queryServerTypeSelect();
+    }
 }

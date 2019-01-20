@@ -15,4 +15,9 @@ public interface ServerTypeMapper {
 
     int updateServerType(ServerType serverType);
 
+    int updateServerTypeStatus(ServerType serverType);
+
+    int delServerType(ServerType serverType);
+
+    List<ServerType> queryServerTypeSelect();
 }

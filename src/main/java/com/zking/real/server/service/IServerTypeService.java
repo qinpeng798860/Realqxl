@@ -15,4 +15,12 @@ public interface IServerTypeService {
     List<Map<String,Object>> queryServerTypePager(ServerType serverType, PageBean bean);
 
     int updateServerType(ServerType serverType);
+
+    int updateServerTypeStatus(ServerType serverType);
+
+    int delServerType(ServerType serverType);
+
+    List<ServerType> queryServerTypeSelect();
+
+
 }

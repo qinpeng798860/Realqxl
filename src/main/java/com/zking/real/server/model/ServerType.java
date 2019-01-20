@@ -2,8 +2,10 @@ package com.zking.real.server.model;
 
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @ToString
-public class ServerType {
+public class ServerType implements Serializable{
     private String id;
 
     private String rSsgs;

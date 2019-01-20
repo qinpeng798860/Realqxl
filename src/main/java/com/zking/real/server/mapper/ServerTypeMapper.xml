@@ -22,12 +22,29 @@
   </insert>
   <update id="updateServerType" parameterType="com.zking.real.server.model.ServerType">
     update r_server_type set r_ssgs=#{rSsgs},r_lxmc=#{rLxmc},r_dj=#{rDj},r_status=#{rStatus},r_note=#{rNote}
-
     where id=#{id}
   </update>
+  <update id="updateServerTypeStatus" parameterType="com.zking.real.server.model.ServerType">
+     update r_server_type set r_status=#{rStatus} where id=#{id}
+  </update>
+  <delete id="delServerType" parameterType="com.zking.real.server.model.ServerType">
+    delete from r_server_type where id=#{id}
+  </delete>
   <select id="queryServerTypePager" resultType="java.util.HashMap"
           parameterType="com.zking.real.server.model.ServerType">
-      select  ty.id,r_ssgs,r_lxmc,r_dj,r_status,r_item,r_note
-      from r_server_type ty,r_dict di where ty.r_status=di.r_value and r_type='服务类型状态'
+    SELECT  st.id,r.r_comname AS r_ssgs,r_item AS r_lxmc,r_dj,
+    r_status,st.r_note,r.r_comid AS r_ssgsId,st.r_lxmc AS r_lxmcId FROM r_server_type st
+    INNER JOIN r_company r
+    ON st.r_ssgs=r.r_comid
+    INNER JOIN r_dict di
+    ON st.r_lxmc=di.r_value AND r_type='服务类型'
+    <if test="null!=rLxmc and rLxmc!=''">
+      and r_value=#{rLxmc}
+    </if>
+  </select>
+  <select id="queryServerTypeSelect" resultType="com.zking.real.server.model.ServerType">
+    select  id,r.r_comname as r_ssgs,r_lxmc,r_dj,r_status,st.r_note from r_server_type st
+    inner join r_company r
+    on st.r_ssgs=r.r_comid and   r_status=1
   </select>
 </mapper>

@@ -13,32 +13,127 @@
       <arg column="r_sqsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="r_fwlx" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="r_zt" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="r_ljqfze" javaType="java.lang.Float" jdbcType="REAL" />
       <arg column="r_sqsx" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="r_fwfy" javaType="java.lang.Float" jdbcType="REAL" />
       <arg column="r_spyj" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="r_ssgs" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, r_fc, r_lymc, r_dy, r_fjmc, r_sqr, r_lxdh, r_sqsj, r_fwlx, r_zt, r_ljqfze, r_sqsx, 
-    r_fwfy, r_spyj
+    id, r_fc, r_lymc, r_dy, r_fjmc, r_sqr, r_lxdh, r_sqsj, r_fwlx, r_zt, r_sqsx,
+    r_fwfy, r_spyj,r_ssgs
   </sql>
   <insert id="insert" parameterType="com.zking.real.server.model.Server">
-     insert into "r_server" (id, r_fc, r_lymc,
+     insert into r_server (id, r_fc, r_lymc,
       r_dy, r_fjmc, r_sqr, r_lxdh,
       r_sqsj, r_fwlx, r_zt,
-      r_ljqfze, r_sqsx, r_fwfy, r_spyj
+       r_sqsx, r_fwfy, r_spyj
       )
     values (#{id,jdbcType=VARCHAR}, #{rFc,jdbcType=VARCHAR}, #{rLymc,jdbcType=VARCHAR},
       #{rDy,jdbcType=VARCHAR}, #{rFjmc,jdbcType=VARCHAR}, #{rSqr,jdbcType=VARCHAR}, #{rLxdh,jdbcType=VARCHAR},
       #{rSqsj,jdbcType=TIMESTAMP}, #{rFwlx,jdbcType=VARCHAR}, #{rZt,jdbcType=VARCHAR},
-      #{rLjqfze,jdbcType=REAL}, #{rSqsx,jdbcType=VARCHAR}, #{rFwfy,jdbcType=REAL}, #{rSpyj,jdbcType=VARCHAR}
+      #{rSqsx,jdbcType=VARCHAR}, #{rFwfy,jdbcType=REAL}, #{rSpyj,jdbcType=VARCHAR}
       )
   </insert>
-  <select id="queryModelPager" resultType="com.zking.real.server.model.Server"
+  <update id="updateServerZt" parameterType="com.zking.real.server.model.Server">
+    UPDATE  r_server set r_zt=#{rZt},r_spyj=#{rSpyj} where id=#{id}
+  </update>
+  <update id="updateServerFy" parameterType="com.zking.real.server.model.Server">
+    UPDATE  r_server SET r_fwfy=#{rFwfy},r_ssgs=#{rSsgs} WHERE id=#{id}
+  </update>
+  <update id="updateManageServerZt" parameterType="com.zking.real.server.model.Server">
+    update r_server set r_zt=#{rZt} where id=#{id}
+  </update>
+  <delete id="delServer" parameterType="com.zking.real.server.model.Server">
+    DELETE  from r_server where id=#{id}
+  </delete>
+    <delete id="deleteManageServer" parameterType="com.zking.real.server.model.Server">
+      delete from r_manageserver where r_blid=#{rBlid}
+    </delete>
+    <select id="queryModelPager" resultType="com.zking.real.server.vo.ServerVo"
           parameterType="com.zking.real.server.model.Server">
-    SELECT <include refid="Base_Column_List"/>
-    from r_server
+    SELECT ser.r_fwlx AS rZtid ,ser.id,r_fc,r_lymc,
+    r_dy,r_fjmc,r_sqr,r_lxdh,r_sqsj,
+    di.`r_item`  AS r_zt, st.`r_item` AS r_fwlx,r_fwfy,r_sqsx,  st.r_value as r_fwid    FROM r_server ser
+    INNER JOIN r_dict di
+    ON ser.`r_zt`=di.`r_value` AND di.`r_type`='服务状态' AND di.r_value IN(1,2,7,8)
+    INNER JOIN r_dict st
+    ON ser.`r_fwlx`=st.`r_value` AND st.`r_type`='服务类型'
+    <if test="rSqsx!=null and rSqsx!=''">
+  AND r_sqsx LIKE CONCAT(CONCAT('%',#{rSqsx}),'%')
+    </if>
+  <if test="rFwlx!=null and rFwlx!=''">
+   AND r_fwlx=#{rFwlx}
+  </if>
+    <if test="rZt!=null and rZt!=''">
+  AND r_zt=#{rZt}
+    </if>
+  </select>
+  <select id="queryCompanyType" resultType="map" parameterType="java.util.Map">
+    SELECT * FROM r_company com
+      INNER JOIN r_server_type st
+      ON com.r_comid=st.r_ssgs
+      AND r_lxmc=#{rLxmc} AND r_comid=#{rSsgs}
+      WHERE 1=1
+  </select>
+  <select id="queryManagerPager" resultType="com.zking.real.server.vo.ServerVo"
+          parameterType="com.zking.real.server.model.Server">
+
+           SELECT r_blid,r_bljg,r_blsj,r_jssj,r_blid,ser.r_fwlx AS rZtid ,ser.id,r_fc,r_lymc,
+    r_dy,r_fjmc,r_sqr,ser.r_lxdh,r_sqsj,
+    di.`r_item`  AS r_zt, st.`r_item` AS r_fwlx,r_fwfy,r_sqsx,  st.r_value AS r_fwid    FROM r_server ser
+    INNER JOIN r_dict di
+    ON ser.`r_zt`=di.`r_value` AND di.`r_type`='服务状态' AND di.r_value IN(3,4,5,6)
+    <if test="rZt!=null and rZt!=''">
+      AND di.r_value=#{rZt}
+    </if>
+      INNER JOIN r_dict st
+      ON ser.`r_fwlx`=st.`r_value` AND st.`r_type`='服务类型'
+    <if test="rFwlx!=null and rFwlx!=''">
+      AND st.r_value=#{rFwlx}
+    </if>
+    <if test="rSqsx!=null and rSqsx!=''">
+      AND r_sqsx LIKE CONCAT(CONCAT('%',#{rSqsx}),'%')
+    </if>
+
+    LEFT JOIN r_manageServer man
+      ON ser.id=man.r_serid
+
+
+
+  </select>
+    <select id="selectSingServer" resultType="com.zking.real.server.vo.ServerVo"
+          parameterType="com.zking.real.server.vo.ServerVo">
+  SELECT  r_blid,r_bljg,r_blsj,r_jssj,,r_blid,r_zt AS rZtid ,ser.id,r_fc,r_lymc,
+    r_dy,r_fjmc, u.r_username AS r_sqr,ser.r_lxdh,r_sqsj,
+    di.`r_item`  AS r_zt, st.`r_item` AS r_fwlx,r_fwfy,r_sqsx,  st.r_value AS r_fwid, com.r_comname AS  r_ssgs,r_comid AS rGsid,r_lxfs    FROM r_server ser
+    INNER JOIN r_dict di
+    ON ser.`r_zt`=di.`r_value` AND di.`r_type`='服务状态' AND di.r_value IN(3,4,5,6)  AND  ser.id=#{id}
+    INNER JOIN r_dict st
+     ON ser.`r_fwlx`=st.`r_value` AND st.`r_type`='服务类型'
+     INNER JOIN r_user u
+     ON ser.r_sqr=u.r_userid
+     INNER JOIN r_company com
+     ON ser.r_ssgs=com.r_comid
+     LEFT JOIN r_manageserver man
+     ON ser.id=man.r_serid
+  </select>
+  <select id="selectSingManageServer" resultType="com.zking.real.server.vo.ServerVo"
+          parameterType="com.zking.real.server.model.Server">
+
+       SELECT  r_blid,r_bljg,r_blsj,r_jssj,r_zt AS rZtid ,ser.id,r_fc,r_lymc,
+    r_dy,r_fjmc, u.r_username AS r_sqr,ser.r_lxdh,r_sqsj,
+    di.`r_item`  AS r_zt, st.`r_item` AS r_fwlx,r_fwfy,r_sqsx,  st.r_value AS r_fwid, com.r_comname AS  r_ssgs,r_comid AS rGsid,r_lxfs    FROM r_server ser
+    INNER JOIN r_dict di
+    ON ser.`r_zt`=di.`r_value` AND di.`r_type`='服务状态' AND di.r_value IN(3,4,5,6)  AND  ser.id=#{id}
+    INNER JOIN r_dict st
+     ON ser.`r_fwlx`=st.`r_value` AND st.`r_type`='服务类型'
+     INNER JOIN r_user u
+     ON ser.r_sqr=u.r_userid
+     INNER JOIN r_company com
+     ON ser.r_ssgs=com.r_comid
+     LEFT JOIN r_manageserver man
+     ON ser.id=man.r_serid
 
   </select>
 
