@@ -1,0 +1,20 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script src="js/owner/Home/HomeMembers.js"></script>
+<input type="hidden" value="${rId}" id="rYzid" name="rYzid"/>
+<div id="addHomeModal">
+    <div class="modal-content" style="width: 800px">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title" id="myHomeModalLabel">
+                查看家庭成员
+            </h4>
+        </div>
+    <table id="BHomeTable">
+        <div id="btn-Homebar">
+            <button type="button" class="btn btn-default" onclick="addHomeTable()">新增</button>
+        </div>
+    </table>
+    </div>
+</div>
